@@ -1,6 +1,6 @@
 import { ILoginForm, ILoginFormResponse } from "@/interfaces/auth";
 import { IBaseUser } from "@/interfaces/base";
-import apiService from "@/services/api";
+import { apiService, refreshApiService } from "@/services/api";
 import { configService } from "@/services/config";
 
 const authService = {
@@ -27,7 +27,7 @@ const authService = {
       refreshToken: refreshToken,
     };
 
-    const response = await apiService.post("/auth/refresh-token", refreshTokenDto);
+    const response = await refreshApiService.post("/auth/refresh-token", refreshTokenDto);
 
     if (response.data) {
       configService.setAccessToken(response.data.accessToken);

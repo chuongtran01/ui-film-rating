@@ -18,6 +18,7 @@ const resetPrincipal: CaseReducer<IPrincipalState, PayloadAction<void>> = (state
 };
 
 const initialState: IPrincipalState = {
+  id: "1",
   username: "",
   firstName: "",
   lastName: "",

@@ -8,6 +8,9 @@ export const routing = defineRouting({
     "/": "/",
     "/login": "/login",
     "/create-account": "/create-account",
+    "/profile/[id]": "/profile/[id]",
+    "/profile/[id]/watchlist": "/profile/[id]/watchlist",
+    "/settings": "/settings",
   },
 });
 

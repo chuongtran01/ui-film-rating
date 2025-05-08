@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import LoginForm from "@/components/login-form";
+import LoginForm from "@/components/authentication/LoginForm";
 import { loginFormSchema } from "../schemas/login";
 import authService from "@/services/auth";
 import { useRouter } from "next/navigation";

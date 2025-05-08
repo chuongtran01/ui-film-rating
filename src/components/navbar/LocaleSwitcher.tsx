@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Locale, routing, usePathname, useRouter } from "@/i18n/routing";
 import { useParams } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useLocale } from "next-intl";
 
 export default function LocaleSwitcher() {
@@ -33,11 +33,13 @@ export default function LocaleSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{locale.toLocaleUpperCase()}</Button>
+        <Button variant="outline" className="bg-primary border-gray-700 text-primary-foreground hover:bg-primary hover:text-primary-foreground font-semibold">
+          {locale.toLocaleUpperCase()}
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-56 bg-primary border-gray-700">
         {routing.locales.map((locale) => (
-          <DropdownMenuItem key={locale} onClick={() => onSelectChange(locale)}>
+          <DropdownMenuItem key={locale} onClick={() => onSelectChange(locale)} className="text-primary-foreground hover:bg-primary focus:bg-gray-800 focus:text-primary-foreground cursor-pointer">
             <span>{locale}</span>
           </DropdownMenuItem>
         ))}

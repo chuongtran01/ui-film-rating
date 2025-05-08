@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslations } from "next-intl";
-
+import Trending from "@/components/trendings/Trending";
 export default function Home() {
   const count = useSelector((state: RootState) => state.principal);
   const dispatch = useDispatch();
@@ -12,8 +12,9 @@ export default function Home() {
   const t = useTranslations();
 
   return (
-    <div>
-      <h1>{t("HomePage.title")}</h1>
+    <div className="min-h-screen">
+      {/* <h1>{t("HomePage.title")}</h1> */}
+      <Trending />
     </div>
   );
 }

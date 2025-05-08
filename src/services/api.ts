@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { configService } from "@/services/config";
 import authService from "@/services/auth";
-import { useDispatch } from "react-redux";
 import { persistor } from "@/redux/store";
 
 const INVALID_TOKEN_MESSAGE = "invalid_token";
@@ -17,6 +16,14 @@ const apiService = axios.create({
   },
 });
 
+const refreshApiService = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 // Add a request interceptor
 apiService.interceptors.request.use(async (config) => {
   // Skip adding the Authorization header
@@ -24,7 +31,10 @@ apiService.interceptors.request.use(async (config) => {
     return config;
   }
 
-  config.headers.Authorization = `Bearer ${configService.getAccessToken()}`;
+  const accessToken = configService.getAccessToken();
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
 
   return config;
 });
@@ -34,7 +44,12 @@ apiService.interceptors.request.use(async (config) => {
  */
 
 let isRefreshing = false;
-let failedQueue: any[] = [];
+
+type FailedRequest = {
+  resolve: (token: string) => void;
+  reject: (error: any) => void;
+};
+let failedQueue: FailedRequest[] = [];
 
 const processQueue = (error: any, token: string | null = null) => {
   failedQueue.forEach((prom) => {
@@ -53,14 +68,16 @@ apiService.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    debugger;
 
     // Handle errors globally
     if (error.response?.status === 401 && error.response.data.error == INVALID_TOKEN_MESSAGE) {
       configService.clearAccessTokenAndRefreshToken();
 
-      window.location.href = "/login";
-      persistor.purge();
+      await persistor.purge();
+
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
 
       console.error("Unauthorized. Redirecting to login...");
     }
@@ -82,8 +99,6 @@ apiService.interceptors.response.use(
         try {
           // Get a new access token
           await authService.refreshAccessToken();
-
-          console.log(configService.getAccessToken());
 
           const accessToken = configService.getAccessToken();
 
@@ -124,4 +139,4 @@ apiService.interceptors.response.use(
   }
 );
 
-export default apiService;
+export { apiService, refreshApiService };

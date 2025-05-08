@@ -8,14 +8,17 @@ export const configService = {
    * Access token handler
    */
   getAccessToken(): string | null {
+    if (typeof window === "undefined") return null;
     return sessionStorage.getItem(ACCESS_TOKEN_KEY);
   },
 
   setAccessToken(token: string): void {
+    if (typeof window === "undefined") return;
     sessionStorage.setItem(ACCESS_TOKEN_KEY, token);
   },
 
   clearAccessToken(): void {
+    if (typeof window === "undefined") return;
     sessionStorage.removeItem(ACCESS_TOKEN_KEY);
   },
 
@@ -48,14 +51,17 @@ export const configService = {
    */
 
   getRefreshToken(): string | null {
+    if (typeof window === "undefined") return null;
     return sessionStorage.getItem(REFRESH_TOKEN_KEY);
   },
 
   setRefreshToken(token: string): void {
+    if (typeof window === "undefined") return;
     sessionStorage.setItem(REFRESH_TOKEN_KEY, token);
   },
 
   clearRefreshToken(): void {
+    if (typeof window === "undefined") return;
     sessionStorage.removeItem(REFRESH_TOKEN_KEY);
   },
 

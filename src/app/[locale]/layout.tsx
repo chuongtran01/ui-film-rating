@@ -3,12 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import StoreProvider from "@/app/StoreProvider";
 import QueryProvider from "@/app/QueryProvider";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar/Navbar";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import BackToTopButton from "@/components/BackToTopButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +46,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}>
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <StoreProvider>
@@ -54,6 +55,7 @@ export default async function RootLayout({
             </StoreProvider>
           </QueryProvider>
         </NextIntlClientProvider>
+        <BackToTopButton />
       </body>
     </html>
   );

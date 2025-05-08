@@ -1,8 +1,8 @@
 "use client";
 
 import { z } from "zod";
-import SignupForm from "@/components/signup-form";
-import { signUpFormSchema } from "../schemas/signup";
+import SignupForm from "@/components/authentication/SignupForm";
+import { signUpFormSchema } from "@/app/[locale]/schemas/signup";
 
 export default function CreateAccount() {
   function onSubmit(values: z.infer<typeof signUpFormSchema>) {

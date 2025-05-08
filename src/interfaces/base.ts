@@ -1,4 +1,5 @@
 interface IBaseUser {
+  id: string;
   username: string;
   firstName: string;
   lastName: string;
