@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const streamingPlatforms = [
   { id: 1, name: "Netflix", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg", link: "https://www.netflix.com" },
@@ -12,24 +14,26 @@ const streamingPlatforms = [
 ];
 export default function ShowStreamingPlatform() {
   return (
-    <div>
-      <div className="flex items-center mb-4">
-        <div className="border-l-4 border-yellow-400 h-10 mr-2"></div>
-        <h2 className="text-2xl font-bold mr-2">Where to watch</h2>
-      </div>
-      <div className="flex gap-4 flex-wrap  mb-8">
-        {streamingPlatforms.map((platform) => (
-          <div key={platform.id} className="flex items-center gap-4 min-w-[240px] bg-white">
-            <img src={platform.thumbnail} alt={platform.name} className="size-[4rem] object-cover border " />
-            <div>
-              <Link href={platform.link} className="text-blue-700 font-semibold hover:underline">
-                {platform.name}
-              </Link>
-              <div className="text-gray-500 text-sm">Subscription (sub)</div>
+    <Card className="border-none shadow-none">
+      <CardHeader className="px-0">
+        <CardTitle className="text-2xl font-bold mr-2">Where to watch</CardTitle>
+        <Separator />
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="flex gap-4 flex-wrap">
+          {streamingPlatforms.map((platform) => (
+            <div key={platform.id} className="flex items-center gap-4 min-w-[240px] bg-white">
+              <img src={platform.thumbnail} alt={platform.name} className="size-[4rem] object-cover border" />
+              <div>
+                <Link href={platform.link} className="text-blue-700 font-semibold hover:underline">
+                  {platform.name}
+                </Link>
+                <div className="text-gray-500 text-sm">Subscription (sub)</div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

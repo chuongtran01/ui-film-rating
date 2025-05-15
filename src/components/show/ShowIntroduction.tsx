@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import ReviewScoreContainer from "@/components/ReviewScoreContainer";
+import { Button } from "@/components/ui/button";
 
 interface ShowIntroductionProps {
   posterUrl: string;
@@ -22,7 +24,7 @@ interface ShowIntroductionProps {
 
 export default function ShowIntroduction({ posterUrl, title, year, rating, duration, ageRating, genres, plot, director, writer, stars }: ShowIntroductionProps) {
   return (
-    <Card className="flex flex-col md:flex-row gap-8 p-6 border-none shadow-lg rounded-none bg-gradient-to-r from-gray-900 to-gray-800 transition-colors">
+    <Card className="flex flex-col md:flex-row gap-8 p-6 border-none shadow-lg bg-gradient-to-r from-gray-900 to-gray-800 transition-colors">
       {/* Poster */}
       <div className="flex-shrink-0 w-full md:w-60">
         <img src={posterUrl} alt={title} className="w-full h-auto rounded-lg object-cover" crossOrigin="anonymous" />
@@ -30,18 +32,15 @@ export default function ShowIntroduction({ posterUrl, title, year, rating, durat
       {/* Details */}
       <div className="flex-1 flex flex-col">
         {/* Title and meta */}
-        <div>
-          <h1 className="text-4xl font-extrabold text-white mb-2">{title}</h1>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-4xl font-extrabold text-white">{title}</h1>
+          <ReviewScoreContainer score={rating} className="w-10 h-10" />
           <div className="flex items-center gap-4 text-gray-400 mb-4">
             <span>{year}</span>
             <span>•</span>
             <span>{ageRating}</span>
             <span>•</span>
             <span>{duration}</span>
-            <span className="flex items-center gap-1">
-              <span className="text-yellow-400">★</span>
-              <span className="text-white font-semibold">{rating.toFixed(1)}</span>
-            </span>
           </div>
         </div>
         {/* Genres */}
@@ -79,8 +78,10 @@ export default function ShowIntroduction({ posterUrl, title, year, rating, durat
         </div>
         {/* Actions */}
         <div className="flex gap-4 mt-4">
-          <button className="bg-yellow-400 text-black font-semibold px-4 py-2 rounded-full hover:bg-yellow-300 transition">+ Add to list</button>
-          <button className="bg-gray-700 text-white font-semibold px-4 py-2 rounded-full hover:bg-gray-600 transition">Mark as watched</button>
+          <Button className="bg-primary text-primary-foreground font-semibold transition">+ Add to list</Button>
+          <Button variant="secondary" className="font-semibold transition">
+            Mark as watched
+          </Button>
         </div>
       </div>
     </Card>

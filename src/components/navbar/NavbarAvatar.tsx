@@ -65,7 +65,9 @@ const NavbarAvatar = ({ handleLogout, handleLogin }: NavbarAvatarProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button onClick={handleLogin}>Log in</Button>
+        <Button onClick={handleLogin} className="bg-primary text-primary-foreground font-semibold hover:bg-primary/90">
+          Log in
+        </Button>
       )}
     </>
   );

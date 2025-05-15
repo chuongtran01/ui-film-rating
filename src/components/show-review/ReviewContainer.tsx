@@ -2,10 +2,11 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { Separator } from "@/components/ui/separator";
-import { ChevronRight, Star, ThumbsUp, MessageCircle } from "lucide-react";
+import { ChevronRight, Star, ThumbsUp, MessageCircle, FlagTriangleLeft, FlagTriangleRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import ReviewScoreContainer from "@/components/ReviewScoreContainer";
 
 export interface Review {
   id: number;
@@ -31,23 +32,11 @@ const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; hand
   }, []);
 
   return (
-    <Card key={review.id} className="bg-white border border-gray-300 rounded-lg p-4 max-w-2xl w-full shadow-sm">
+    <Card key={review.id} className="p-4 max-w-2xl w-full flex flex-col gap-4">
       {/* Top row: badge and rating and title */}
-      <CardHeader className="p-0">
-        <CardTitle>
-          <div className="flex justify-between items-start">
-            <span className="flex items-center gap-1 text-gray-500 font-semibold">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              {review.rating}/10
-            </span>
-          </div>
-        </CardTitle>
-        <CardDescription className="text-black">
-          <div className="flex items-center font-bold text-lg mb-2 cursor-pointer hover:opacity-80" onClick={handleOnHeaderClick}>
-            {review.title}
-            <ChevronRight className="size-[1.5rem]font-bold" />
-          </div>
-        </CardDescription>
+      <CardHeader className="p-0 flex flex-row items-center gap-4">
+        <ReviewScoreContainer score={review.rating} className="h-10 w-10 text-xl" />
+        <CardDescription className="text-black font-bold text-lg">{review.title}</CardDescription>
       </CardHeader>
 
       {/* Review text with review and reviewer */}
@@ -58,10 +47,7 @@ const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; hand
           </div>
           {!expanded && showViewMore && (
             <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white to-transparent flex items-end justify-center pointer-events-none">
-              <Button
-                className="relative z-10 pointer-events-auto bg-white border border-gray-300 rounded px-3 py-1 text-blue-700 font-semibold mt-2 hover:bg-gray-100"
-                onClick={() => setExpanded(true)}
-              >
+              <Button className="relative z-10 pointer-events-auto bg-white border border-gray-300 text-primary font-semibold mt-2 hover:bg-gray-100" onClick={() => setExpanded(true)}>
                 View more
               </Button>
             </div>
@@ -79,7 +65,7 @@ const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; hand
       <Separator className="my-2" />
 
       {/* Bottom row: helpful and comments */}
-      <CardFooter className="p-0">
+      <CardFooter className="p-0 flex flex-row items-center justify-between">
         <div className="flex items-center gap-6 text-gray-600 text-sm border-gray-200 pt-2">
           <span className="flex items-center gap-1">
             <ThumbsUp className="w-4 h-4 cursor-pointer hover:text-black" /> Helpful · {review.helpful}
@@ -87,6 +73,9 @@ const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; hand
           <span className="flex items-center gap-1 cursor-pointer hover:text-black">
             <MessageCircle className="w-4 h-4" /> {review.comments}
           </span>
+        </div>
+        <div className="text-gray-600 text-sm cursor-pointer flex items-center gap-1 hover:text-black">
+          <FlagTriangleRight className="w-4 h-4" /> Report
         </div>
       </CardFooter>
     </Card>

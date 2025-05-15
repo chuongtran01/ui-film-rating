@@ -14,6 +14,7 @@ interface ILoginFormResponse {
 }
 
 interface CustomJwtPayload extends JwtPayload {
+  id: string;
   firstName: string;
   lastName: string;
   roles: string[];

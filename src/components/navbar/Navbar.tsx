@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "@/i18n/routing";
-import { Book, Sunset, Trees, Zap } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { persistor } from "@/redux/store";
 import { resetPrincipalAction } from "@/redux/features/principal/principalSlice";
@@ -38,23 +37,23 @@ export default function UserNavbar() {
   const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/login");
+    router.push("/auth");
   };
 
   const handleLogout = async () => {
-    await authService.logout();
     dispatch(resetPrincipalAction());
+    await authService.logout();
     await persistor.purge();
-    router.push("/login");
+    router.push("/auth");
   };
 
   return (
-    <div className="flex justify-center bg-gray-900 text-primary-foreground">
+    <div className="flex justify-center bg-navbar-background text-navbar-foreground">
       <div className="flex h-16 items-center px-4 container">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <Link href="/">
-              <span className="text-2xl font-semibold bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 bg-clip-text text-transparent">Flick</span>
+              <span className="text-2xl font-semibold text-primary">Cinecritique</span>
             </Link>
           </div>
         </div>
@@ -66,7 +65,7 @@ export default function UserNavbar() {
                 <NavigationMenuItem key={item.title}>
                   <Link href={item.href} legacyBehavior passHref>
                     <NavigationMenuLink className="select-none">
-                      <Button variant="ghost" className="hover:bg-gray-800 hover:text-white font-semibold">
+                      <Button variant="ghost" className="font-semibold">
                         {item.title}
                       </Button>
                     </NavigationMenuLink>
@@ -79,13 +78,9 @@ export default function UserNavbar() {
 
         <div className="flex items-center space-x-4">
           <div>
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="md:w-[100px] lg:w-[300px] bg-transparent border-gray-700 text-primary-foreground placeholder:text-gray-400 focus:border-gray-600 [&::-webkit-search-cancel-button]:filter [&::-webkit-search-cancel-button]:invert [&::-webkit-search-cancel-button]:brightness-0"
-            />
+            <Input type="search" placeholder="Search..." className="md:w-[100px] lg:w-[300px] bg-background text-foreground" />
           </div>
-          <LocaleSwitcher />
+          {/* <LocaleSwitcher /> */}
           <NavbarAvatar handleLogout={handleLogout} handleLogin={handleLogin} />
         </div>
       </div>

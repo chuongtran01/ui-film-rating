@@ -10,6 +10,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import BackToTopButton from "@/components/BackToTopButton";
+import Footer from "@/components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,7 @@ export default async function RootLayout({
             <StoreProvider>
               <Navbar />
               {children}
+              <Footer />
             </StoreProvider>
           </QueryProvider>
         </NextIntlClientProvider>

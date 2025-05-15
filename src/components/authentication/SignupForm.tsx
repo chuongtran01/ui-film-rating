@@ -9,15 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { signUpFormSchema } from "@/app/[locale]/schemas/signup";
-import { Separator } from "@/components/ui/separator";
-import { FacebookIcon } from "lucide-react";
-import { Icons } from "@/components/ui/icons";
+import { cn } from "@/lib/utils";
 
 type SignupFormProps = {
   onSubmit: (values: { email: string; password: string }) => void;
+  className?: string;
 };
 
-export default function SignupForm({ onSubmit }: SignupFormProps) {
+export default function SignupForm({ onSubmit, className, ...props }: SignupFormProps) {
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -27,27 +26,12 @@ export default function SignupForm({ onSubmit }: SignupFormProps) {
   });
 
   return (
-    <Card className="w-[350px]">
+    <Card className={cn("flex flex-col", className)} {...props}>
       <CardHeader>
-        <CardTitle>Create account</CardTitle>
+        <CardTitle className="text-2xl">Create account</CardTitle>
         <CardDescription>Enter your email below to create your account</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex justify-center gap-4 mb-4">
-          <Button variant="outline" className="w-full">
-            <FacebookIcon />
-            Facebook
-          </Button>
-          <Button variant="outline" className="w-full">
-            <Icons.google />
-            Google
-          </Button>
-        </div>
-        <div className="flex items-center space-x-4">
-          <Separator className="w-1/4" />
-          <span className="text-xs uppercase text-muted-foreground">Or continue with</span>
-          <Separator className="w-1/4" />
-        </div>
         <Form {...form}>
           <form id="signupForm" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -79,9 +63,12 @@ export default function SignupForm({ onSubmit }: SignupFormProps) {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex flex-col justify-between gap-4">
         <Button form="signupForm" type="submit" className="w-full">
           Create account
+        </Button>
+        <Button variant="outline" className="w-full bg-white text-black">
+          Login with Google
         </Button>
       </CardFooter>
     </Card>
