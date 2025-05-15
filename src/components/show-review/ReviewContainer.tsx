@@ -19,7 +19,13 @@ export interface Review {
 
 const MAX_HEIGHT = 240; // px, adjust as needed
 
-const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; handleOnHeaderClick: () => void }) => {
+interface ReviewContainerProps {
+  review: Review;
+  handleOnHeaderClick: () => void;
+  className?: string;
+}
+
+const ReviewContainer = ({ review, handleOnHeaderClick, className }: ReviewContainerProps) => {
   const [expanded, setExpanded] = useState(false);
   const [showViewMore, setShowViewMore] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
@@ -32,7 +38,7 @@ const ReviewContainer = ({ review, handleOnHeaderClick }: { review: Review; hand
   }, []);
 
   return (
-    <Card key={review.id} className="p-4 max-w-2xl w-full flex flex-col gap-4">
+    <Card key={review.id} className={`p-4 flex flex-col gap-4 ${className}`}>
       {/* Top row: badge and rating and title */}
       <CardHeader className="p-0 flex flex-row items-center gap-4">
         <ReviewScoreContainer score={review.rating} className="h-10 w-10 text-xl" />

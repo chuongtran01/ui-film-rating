@@ -1,13 +1,13 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import ReviewScoreContainer from "@/components/ReviewScoreContainer";
 import { Progress } from "@/components/ui/progress";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
+
 const ReviewListSummary = () => {
   return (
     <Card className="flex flex-row w-fit">
       <CardHeader>
-        <ReviewScoreContainer score={85} className="w-16 h-16 text-2xl" />
+        <ReviewScoreContainer score={85} className="w-16 h-16 text-3xl" />
       </CardHeader>
       <CardContent className="flex flex-col gap-2 items-center justify-center py-0">
         <div className="grid grid-cols-[1fr_2fr_1fr] gap-2 items-center justify-center">

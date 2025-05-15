@@ -105,9 +105,9 @@ const ReviewListBody = ({ reviews }: ReviewListBodyProps) => {
         <ReviewListControl />
         <Separator />
       </CardHeader>
-      <CardContent className="grid grid-cols-1 md:grid-cols-2 justify-items-start gap-y-12 px-0">
+      <CardContent className="grid grid-cols-1 justify-items-start gap-y-12 px-0">
         {reviews.map((review) => (
-          <ReviewContainer key={review.id} review={review} handleOnHeaderClick={() => {}} />
+          <ReviewContainer key={review.id} review={review} handleOnHeaderClick={() => {}} className="max-w-5xl" />
         ))}
       </CardContent>
     </Card>

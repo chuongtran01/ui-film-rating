@@ -65,7 +65,7 @@ const ShowReview = () => {
       <CardContent className="px-0">
         <div className="flex flex-col gap-4">
           {reviews.map((review) => (
-            <ReviewContainer key={review.id} review={review} handleOnHeaderClick={handleReviewClick} />
+            <ReviewContainer key={review.id} review={review} handleOnHeaderClick={handleReviewClick} className="max-w-3xl" />
           ))}
         </div>
       </CardContent>
