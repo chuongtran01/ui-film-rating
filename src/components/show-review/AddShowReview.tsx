@@ -2,20 +2,18 @@
 
 import React, { useState } from "react";
 import { Star } from "lucide-react";
-import { SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import { addReviewFormSchema } from "@/app/[locale]/schemas/add-review";
+import { addReviewFormSchema } from "@/app/[locale]/schemas/add-review-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "../ui/checkbox";
-import ReviewScoreContainer from "../ReviewScoreContainer";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import ReviewScoreContainer from "@/components/ReviewScoreContainer";
 
 interface AddShowReviewProps {
   onCancel: () => void;

@@ -8,21 +8,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { signUpFormSchema } from "@/app/[locale]/schemas/signup";
+import { signUpFormSchema } from "@/app/[locale]/schemas/signup-form";
 import { cn } from "@/lib/utils";
 
 type SignupFormProps = {
-  onSubmit: (values: { email: string; password: string }) => void;
+  onSubmit: (values: SignupFormValues) => void;
   className?: string;
 };
 
-export default function SignupForm({ onSubmit, className, ...props }: SignupFormProps) {
-  const form = useForm<z.infer<typeof signUpFormSchema>>({
+type SignupFormValues = z.infer<typeof signUpFormSchema>;
+
+const defaultValues: Partial<SignupFormValues> = {
+  email: "",
+  password: "",
+};
+
+const SignupForm = ({ onSubmit, className, ...props }: SignupFormProps) => {
+  const form = useForm<SignupFormValues>({
     resolver: zodResolver(signUpFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues,
   });
 
   return (
@@ -73,4 +77,6 @@ export default function SignupForm({ onSubmit, className, ...props }: SignupForm
       </CardFooter>
     </Card>
   );
-}
+};
+
+export default SignupForm;

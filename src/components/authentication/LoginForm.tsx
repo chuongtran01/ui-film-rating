@@ -6,22 +6,25 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { loginFormSchema } from "@/app/[locale]/schemas/login";
+import { loginFormSchema } from "@/app/[locale]/schemas/login-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 type LoginFormProps = {
-  onSubmit: (values: { username: string; password: string }) => void;
+  onSubmit: (values: LoginFormValues) => void;
   className?: string;
 };
 
+type LoginFormValues = z.infer<typeof loginFormSchema>;
+
+const defaultValues: Partial<LoginFormValues> = {
+  username: "",
+  password: "",
+};
+
 const LoginForm = ({ onSubmit, className, ...props }: LoginFormProps) => {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
+  const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      // email: "",
-      username: "",
-      password: "",
-    },
+    defaultValues,
   });
 
   return (

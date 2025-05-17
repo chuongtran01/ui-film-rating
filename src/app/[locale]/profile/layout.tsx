@@ -22,6 +22,10 @@ const sidebarNavItems = [
     title: "My Account",
     href: "/profile/account",
   },
+  {
+    title: "Password",
+    href: "/profile/password",
+  },
 ];
 
 interface SettingsLayoutProps {

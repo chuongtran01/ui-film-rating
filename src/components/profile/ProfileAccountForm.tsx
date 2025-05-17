@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "@/hooks/use-toast";
 import { profileAccountFormSchema } from "@/app/[locale]/schemas/profile-account-form";
+import { Command, CommandList, CommandGroup, CommandItem } from "@/components/ui/command";
 
 type ProfileAccountFormValues = z.infer<typeof profileAccountFormSchema>;
 
@@ -24,7 +25,14 @@ const defaultValues: Partial<ProfileAccountFormValues> = {
   name: "",
   dob: undefined,
   email: "test@test.com",
+  gender: undefined,
 };
+
+const genders = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+  { value: "other", label: "Other" },
+];
 
 const ProfileAccountForm = () => {
   const form = useForm<ProfileAccountFormValues>({
@@ -53,7 +61,7 @@ const ProfileAccountForm = () => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" {...field} />
+                <Input placeholder="Your name" {...field} className="w-72" />
               </FormControl>
               <FormDescription>This is the name that will be displayed on your profile.</FormDescription>
               <FormMessage />
@@ -67,7 +75,7 @@ const ProfileAccountForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} disabled className="w-md" />
+                <Input {...field} disabled className="w-72 bg-gray-100" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -101,11 +109,38 @@ const ProfileAccountForm = () => {
           control={form.control}
           name="gender"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col">
               <FormLabel>Gender</FormLabel>
-              <FormControl>
-                <Input className="w-32" {...field} />
-              </FormControl>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button variant="outline" role="combobox" className={cn("w-[200px] justify-between", !field.value && "text-muted-foreground")}>
+                      {field.value ? genders.find((gender) => gender.value === field.value)?.label : "Select gender"}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command>
+                    <CommandList>
+                      <CommandGroup>
+                        {genders.map((gender) => (
+                          <CommandItem
+                            value={gender.label}
+                            key={gender.value}
+                            onSelect={() => {
+                              form.setValue("gender", gender.value);
+                            }}
+                          >
+                            <Check className={cn("mr-2", gender.value === field.value ? "opacity-100" : "opacity-0")} />
+                            {gender.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}

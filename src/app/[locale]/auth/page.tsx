@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import LoginForm from "@/components/authentication/LoginForm";
-import { loginFormSchema } from "../schemas/login";
+import { loginFormSchema } from "../schemas/login-form";
 import authService from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ import { IBaseUser } from "@/interfaces/base";
 import { CustomJwtPayload } from "@/interfaces/auth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SignupForm from "@/components/authentication/SignupForm";
-import { signUpFormSchema } from "../schemas/signup";
+import { signUpFormSchema } from "../schemas/signup-form";
 
 const Login = () => {
   const router = useRouter();
