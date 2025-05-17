@@ -1,7 +1,7 @@
 import UserProfile from "@/components/profile/UserProfile";
 
 const page = () => {
-  return <UserProfile />;
+  return <></>;
 };
 
 export default page;

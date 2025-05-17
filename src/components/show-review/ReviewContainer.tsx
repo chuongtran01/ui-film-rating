@@ -2,9 +2,9 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { Separator } from "@/components/ui/separator";
-import { ChevronRight, Star, ThumbsUp, MessageCircle, FlagTriangleLeft, FlagTriangleRight } from "lucide-react";
+import { ThumbsUp, MessageCircle, FlagTriangleRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import ReviewScoreContainer from "@/components/ReviewScoreContainer";
 
@@ -17,22 +17,21 @@ export interface Review {
   comments: number;
 }
 
-const MAX_HEIGHT = 240; // px, adjust as needed
-
 interface ReviewContainerProps {
   review: Review;
   handleOnHeaderClick: () => void;
   className?: string;
+  maxHeight?: number;
 }
 
-const ReviewContainer = ({ review, handleOnHeaderClick, className }: ReviewContainerProps) => {
+const ReviewContainer = ({ review, handleOnHeaderClick, maxHeight = 240, className }: ReviewContainerProps) => {
   const [expanded, setExpanded] = useState(false);
   const [showViewMore, setShowViewMore] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (textRef.current && textRef.current.scrollHeight > MAX_HEIGHT) {
+    if (textRef.current && textRef.current.scrollHeight > maxHeight) {
       setShowViewMore(true);
     }
   }, []);
@@ -47,8 +46,8 @@ const ReviewContainer = ({ review, handleOnHeaderClick, className }: ReviewConta
 
       {/* Review text with review and reviewer */}
       <CardContent className="p-0">
-        <div className="relative mb-4 text-sm">
-          <div ref={textRef} className={`text-gray-800 transition-all duration-300 ${expanded ? "" : "overflow-hidden"}`} style={!expanded ? { maxHeight: `${MAX_HEIGHT}px` } : undefined}>
+        <div className="relative mb-6 text-sm">
+          <div ref={textRef} className={`text-gray-800 transition-all duration-300 ${expanded ? "" : "overflow-hidden"}`} style={!expanded ? { maxHeight: `${maxHeight}px` } : undefined}>
             {review.reviewText}
           </div>
           {!expanded && showViewMore && (
@@ -66,13 +65,13 @@ const ReviewContainer = ({ review, handleOnHeaderClick, className }: ReviewConta
           </span>{" "}
           on 2024-01-01
         </div>
-      </CardContent>
 
-      <Separator className="my-2" />
+        <Separator className="my-2" />
+      </CardContent>
 
       {/* Bottom row: helpful and comments */}
       <CardFooter className="p-0 flex flex-row items-center justify-between">
-        <div className="flex items-center gap-6 text-gray-600 text-sm border-gray-200 pt-2">
+        <div className="flex items-center gap-6 text-gray-600 text-sm border-gray-200">
           <span className="flex items-center gap-1">
             <ThumbsUp className="w-4 h-4 cursor-pointer hover:text-black" /> Helpful · {review.helpful}
           </span>

@@ -34,7 +34,7 @@ export default function ShowIntroduction({ posterUrl, title, year, rating, durat
         {/* Title and meta */}
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-extrabold text-white">{title}</h1>
-          <ReviewScoreContainer score={rating} className="w-10 h-10" />
+          <ReviewScoreContainer score={rating} className="w-10 h-10 text-xl" />
           <div className="flex items-center gap-4 text-gray-400 mb-4">
             <span>{year}</span>
             <span>•</span>

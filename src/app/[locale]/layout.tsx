@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import BackToTopButton from "@/components/BackToTopButton";
 import Footer from "@/components/footer/Footer";
-
+import { Toaster } from "@/components/ui/toaster";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -51,9 +51,12 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <StoreProvider>
-              <Navbar />
-              {children}
-              <Footer />
+              <main>
+                <Navbar />
+                {children}
+                <Footer />
+              </main>
+              <Toaster />
             </StoreProvider>
           </QueryProvider>
         </NextIntlClientProvider>

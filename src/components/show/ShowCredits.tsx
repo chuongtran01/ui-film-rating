@@ -4,8 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
-import { ChevronRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const credits = [
   { id: 1, name: "Han Jun Hee", character: "Character 1", role: "Main Role", thumbnail: "https://i.mydramalist.com/BqDyVm.jpg", link: "https://www.netflix.com" },

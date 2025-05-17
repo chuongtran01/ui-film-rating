@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Star } from "lucide-react";
-import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { addReviewFormSchema } from "@/app/[locale]/schemas/add-review";
@@ -12,8 +12,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "../ui/checkbox";
+import ReviewScoreContainer from "../ReviewScoreContainer";
 
-export default function AddShowReview() {
+interface AddShowReviewProps {
+  onCancel: () => void;
+}
+
+export default function AddShowReview({ onCancel }: AddShowReviewProps) {
   const form = useForm<z.infer<typeof addReviewFormSchema>>({
     resolver: zodResolver(addReviewFormSchema),
     defaultValues: {
@@ -31,139 +39,110 @@ export default function AddShowReview() {
   };
 
   return (
-    <SheetContent className="mx-auto bg-white border-none flex flex-col p-0 min-h-screen [&>button:first-of-type]:hidden">
+    <Card className="flex flex-col border-none shadow-none p-0 gap-4">
       {/* Header */}
-      <SheetHeader className="p-4 pb-0">
-        <SheetTitle>Add User Review</SheetTitle>
-      </SheetHeader>
+      <CardHeader className="p-0">
+        <CardDescription className="flex items-center gap-2">
+          <img src="https://m.media-amazon.com/images/M/MV5BMDM1ODI5NTYtYzk1ZC00ZmQ0LTgwOTgtNDcxNGU1Nzk1NjZhXkEyXkFqcGc@._V1_.jpg" alt="Warfare" className="w-15 h-16 rounded-md object-cover" />
+          <div>
+            <div className="text-lg font-semibold">Someday or One day</div>
+            <div className="text-xs text-gray-600">R · 2025 · 1h 35m</div>
+          </div>
+        </CardDescription>
+      </CardHeader>
 
-      <div className="bg-gradient-to-br from-gray-700 to-gray-900 flex items-center p-3 gap-2">
-        <img src="https://m.media-amazon.com/images/M/MV5BMDM1ODI5NTYtYzk1ZC00ZmQ0LTgwOTgtNDcxNGU1Nzk1NjZhXkEyXkFqcGc@._V1_.jpg" alt="Warfare" className="w-15 h-16 rounded-md object-cover" />
-        <div>
-          <div className="text-white font-semibold">Someday or One day</div>
-          <div className="text-xs text-gray-300">R · 2025 · 1h 35m</div>
-        </div>
-      </div>
+      <Separator className="my-2" />
 
-      {/* Form */}
-      <Form {...form}>
-        <form id="addReviewForm" className="flex-1 flex flex-col p-4 gap-4" onSubmit={form.handleSubmit(onFormSubmit)}>
-          {/* Rating */}
-          <div className="flex flex-col justify-start gap-1 mb-2">
+      <CardContent className="p-0">
+        <Form {...form}>
+          <form id="addReviewForm" className="flex-1 flex flex-col gap-4" onSubmit={form.handleSubmit(onFormSubmit)}>
+            {/* Rating */}
+            <div className="flex flex-col justify-start gap-1 mb-2">
+              <FormField
+                control={form.control}
+                name="rating"
+                render={({ field }) => (
+                  <FormItem className="flex items-center flex-row justify-center gap-2">
+                    <ReviewScoreContainer score={field.value} className="w-16 h-16 text-4xl" />
+                    <FormControl className="flex justify-start w-full">
+                      <div className="flex items-center">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((val) => (
+                          <button
+                            key={val}
+                            type="button"
+                            onClick={() => field.onChange(val)}
+                            onMouseEnter={() => setHoverRating(val)}
+                            onMouseLeave={() => setHoverRating(0)}
+                            className="focus:outline-none"
+                          >
+                            <Star className={`w-6 h-6 ${(hoverRating || field.value) >= val ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
+                          </button>
+                        ))}
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Headline */}
             <FormField
               control={form.control}
-              name="rating"
+              name="headline"
               render={({ field }) => (
-                <FormItem className="flex items-center flex-col gap-2">
-                  <FormLabel className="font-semibold flex flex-row w-full justify-between">
-                    Your rating
-                    <span className="ml-2 text-gray-500 font-semibold">{field.value ? `${field.value}/10` : "?"}</span>
-                  </FormLabel>
-                  <FormControl className="flex justify-start w-full">
-                    <div className="flex items-center">
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((val) => (
-                        <button
-                          key={val}
-                          type="button"
-                          onClick={() => field.onChange(val)}
-                          onMouseEnter={() => setHoverRating(val)}
-                          onMouseLeave={() => setHoverRating(0)}
-                          className="focus:outline-none"
-                        >
-                          <Star className={`w-6 h-6 ${(hoverRating || field.value) >= val ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
-                        </button>
-                      ))}
-                    </div>
+                <FormItem className="flex flex-col gap-2">
+                  <FormLabel className="font-semibold">Headline</FormLabel>
+                  <FormControl>
+                    <Input type="text" className="w-full" {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
-          </div>
 
-          {/* Headline */}
-          <FormField
-            control={form.control}
-            name="headline"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel className="font-semibold">Headline</FormLabel>
-                <FormControl>
-                  <Input type="text" className="border border-gray-300 rounded px-3 py-2 w-full" placeholder="Title of your review" {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+            {/* Review */}
+            <FormField
+              control={form.control}
+              name="review"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2">
+                  <FormLabel className="font-semibold">Review</FormLabel>
+                  <FormControl>
+                    <Textarea className="w-full min-h-[120px]" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Review */}
-          <FormField
-            control={form.control}
-            name="review"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel className="font-semibold">Review</FormLabel>
-                <FormControl>
-                  <Textarea className="border border-gray-300 rounded px-3 py-2 w-full min-h-[120px]" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            {/* Spoiler */}
+            <FormField
+              control={form.control}
+              name="spoiler"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center gap-2">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel className="font-semibold !mt-0">Contain Spoilers?</FormLabel>
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </CardContent>
 
-          {/* Spoiler */}
-          <FormField
-            control={form.control}
-            name="spoiler"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2 border border-gray-300 rounded-lg p-3 bg-gray-50">
-                <FormLabel className="font-semibold">Does this review contain spoilers?</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    value={field.value === true ? "true" : field.value === false ? "false" : ""}
-                    onValueChange={(val) => field.onChange(val === "true")}
-                    className="flex flex-col items-start gap-2"
-                  >
-                    <FormItem className="flex items-center gap-2">
-                      <FormControl>
-                        <RadioGroupItem value="true" />
-                      </FormControl>
-                      <FormLabel className="!mt-0">Yes</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center gap-2">
-                      <FormControl>
-                        <RadioGroupItem value="false" />
-                      </FormControl>
-                      <FormLabel className="!mt-0">No</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
+      {/* Form */}
 
-      <div className="flex flex-col gap-3 p-4">
-        {/* Conditions */}
-        <div className="text-xs text-gray-500 mt-2">
-          I agree to the{" "}
-          <a href="#" className="text-blue-700 font-semibold underline">
-            Conditions of Use
-          </a>
-          . The data I'm submitting is true and not copyrighted by a third party.
-        </div>
-
-        {/* Buttons fixed at the bottom */}
-        <div className="flex flex-col gap-2">
-          <Button form="addReviewForm" type="submit" className="bg-blue-600 text-white py-2 font-semibold hover:bg-blue-700 transition">
+      <CardFooter className="flex flex-col gap-4 p-0">
+        <div className="flex flex-row gap-4 w-full">
+          <Button type="button" variant="secondary" className="font-semibold flex-1" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button form="addReviewForm" type="submit" className="bg-primary text-primary-foreground font-semibold flex-1">
             Submit
           </Button>
-          <SheetClose asChild>
-            <Button type="button" className="bg-gray-100 text-blue-700 py-2 font-semibold hover:bg-gray-200 transition">
-              Cancel
-            </Button>
-          </SheetClose>
         </div>
-      </div>
-    </SheetContent>
+      </CardFooter>
+    </Card>
   );
 }

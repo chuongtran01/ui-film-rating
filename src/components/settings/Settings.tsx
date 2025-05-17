@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
-import SettingsProfile from "@/components/settings/SettingsProfile";
+import SettingsProfile from "@/components/profile/ProfileAccountForm";
 import { Separator } from "@/components/ui/separator";
 
 const tabs = ["Profile", "General Settings", "Security & Privacy", "Notifications", "Connected Apps", "Subscriptions", "Blocking"];

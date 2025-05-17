@@ -11,7 +11,7 @@ export default function ShowDetails() {
         posterUrl="https://m.media-amazon.com/images/M/MV5BMDM1ODI5NTYtYzk1ZC00ZmQ0LTgwOTgtNDcxNGU1Nzk1NjZhXkEyXkFqcGc@._V1_.jpg"
         title="Sinners"
         year={2025}
-        rating={81}
+        rating={8}
         duration="2h 17m"
         ageRating="R"
         genres={["Period Drama", "Supernatural Horror", "Vampire Horror", "Action", "Drama", "Horror", "Thriller"]}

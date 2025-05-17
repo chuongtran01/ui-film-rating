@@ -1,4 +1,6 @@
-import { settingsProfileFormSchema } from "@/app/[locale]/schemas/settings-profile";
+"use client";
+
+import { settingsProfileFormSchema } from "@/app/[locale]/schemas/profile-account-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter } from "@/components/ui/card";
 
-const SettingsProfile = () => {
+const ProfileAccount = () => {
   const form = useForm<z.infer<typeof settingsProfileFormSchema>>({
     resolver: zodResolver(settingsProfileFormSchema),
     defaultValues: {
@@ -107,5 +109,3 @@ const SettingsProfile = () => {
     </Card>
   );
 };
-
-export default SettingsProfile;
