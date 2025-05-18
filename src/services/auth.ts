@@ -1,17 +1,27 @@
-import { ILoginForm, ILoginFormResponse } from "@/interfaces/auth";
+import { LoginFormValues } from "@/components/authentication/LoginForm";
+import { SignupFormValues } from "@/components/authentication/SignupForm";
+import { ILoginForm, ILoginFormResponse, ISignupFormResponse } from "@/interfaces/auth";
 import { IBaseUser } from "@/interfaces/base";
 import { apiService, refreshApiService } from "@/services/api";
 import { configService } from "@/services/config";
 
+const API_PREFIX = "auth";
+
 const authService = {
-  login: async (data: ILoginForm): Promise<ILoginFormResponse> => {
-    const response = await apiService.post<ILoginFormResponse>("/auth/login", data);
+  login: async (data: LoginFormValues): Promise<ILoginFormResponse> => {
+    const response = await apiService.post<ILoginFormResponse>(`${API_PREFIX}/login`, data);
 
     const { accessToken, refreshToken } = response.data;
 
     // Store tokens using configService
     configService.setAccessToken(accessToken);
     configService.setRefreshToken(refreshToken);
+
+    return response.data;
+  },
+
+  register: async (data: SignupFormValues): Promise<ISignupFormResponse> => {
+    const response = await apiService.post<ISignupFormResponse>(`${API_PREFIX}/register`, data);
 
     return response.data;
   },
@@ -27,7 +37,7 @@ const authService = {
       refreshToken: refreshToken,
     };
 
-    const response = await refreshApiService.post("/auth/refresh-token", refreshTokenDto);
+    const response = await refreshApiService.post(`${API_PREFIX}/refresh-token`, refreshTokenDto);
 
     if (response.data) {
       configService.setAccessToken(response.data.accessToken);
@@ -36,7 +46,7 @@ const authService = {
   },
 
   logout: async (): Promise<void> => {
-    return await apiService.post("/auth/logout");
+    return await apiService.post(`${API_PREFIX}/logout`);
   },
 
   getUser: async (): Promise<IBaseUser> => {
@@ -46,7 +56,7 @@ const authService = {
       throw new Error("No access token available");
     }
 
-    return await apiService.get("/auth/user");
+    return await apiService.get(`${API_PREFIX}/user`);
   },
 };
 

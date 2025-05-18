@@ -3,32 +3,32 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Button } from "@/components/ui/button";
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { persistor, RootState } from "@/redux/store";
 import { useRouter } from "@/i18n/routing";
+import { resetPrincipalAction } from "@/redux/features/principal/principalSlice";
+import authService from "@/services/auth";
 
-interface NavbarAvatarProps {
-  handleLogout: () => void;
-  handleLogin: () => void;
-}
-
-const NavbarAvatar = ({ handleLogout, handleLogin }: NavbarAvatarProps) => {
+const NavbarAvatar = () => {
   const principalState = useSelector((state: RootState) => state.principal);
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const headerNavbarAvatarDropdownMenuItems = [
     {
-      title: "Profile",
-      onClick: () => router.push({ pathname: "/profile/[id]", params: { id: principalState.id } }),
-    },
-    {
-      title: "My Watchlist",
-      onClick: () => router.push({ pathname: "/profile/[id]/watchlist", params: { id: principalState.id } }),
-    },
-    {
-      title: "Settings",
-      onClick: () => router.push({ pathname: "/settings" }),
+      title: "My Profile",
+      onClick: () => router.push({ pathname: "/profile/reviews" }),
     },
   ];
+
+  const handleLogout = async () => {
+    await authService.logout();
+    dispatch(resetPrincipalAction());
+    await persistor.purge();
+    router.push("/auth");
+  };
+
+  const handleLogin = () => {
+    router.push({ pathname: "/auth" });
+  };
 
   return (
     <>
@@ -37,8 +37,8 @@ const NavbarAvatar = ({ handleLogout, handleLogin }: NavbarAvatarProps) => {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
-                <AvatarImage src={principalState.avatarUrl} alt={`${principalState.firstName} ${principalState.lastName}`} />
-                <AvatarFallback>{`${principalState.firstName[0].toUpperCase()}${principalState.lastName[0].toUpperCase()}`}</AvatarFallback>
+                <AvatarImage src={principalState.avatarUrl} alt={`${principalState.displayName}`} />
+                <AvatarFallback>{`${principalState.displayName?.charAt(0).toUpperCase()}`}</AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>

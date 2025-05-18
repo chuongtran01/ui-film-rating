@@ -10,13 +10,16 @@ import { z } from "zod";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { signUpFormSchema } from "@/app/[locale]/schemas/signup-form";
 import { cn } from "@/lib/utils";
+import authService from "@/services/auth";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "@/hooks/use-toast";
 
 type SignupFormProps = {
-  onSubmit: (values: SignupFormValues) => void;
+  onSubmit?: () => void;
   className?: string;
 };
 
-type SignupFormValues = z.infer<typeof signUpFormSchema>;
+export type SignupFormValues = z.infer<typeof signUpFormSchema>;
 
 const defaultValues: Partial<SignupFormValues> = {
   email: "",
@@ -29,6 +32,29 @@ const SignupForm = ({ onSubmit, className, ...props }: SignupFormProps) => {
     defaultValues,
   });
 
+  const mutation = useMutation({
+    mutationFn: authService.register,
+    onSuccess: (response) => {
+      console.log(response);
+      toast({
+        title: "Account created successfully",
+        description: "You can now login to your account",
+      });
+      onSubmit?.();
+      form.reset();
+    },
+    onError: (e) => {
+      toast({
+        title: "Account creation failed",
+        description: "Please try again",
+      });
+    },
+  });
+
+  const onFormSubmit = (values: SignupFormValues) => {
+    mutation.mutate(values);
+  };
+
   return (
     <Card className={cn("flex flex-col", className)} {...props}>
       <CardHeader>
@@ -37,7 +63,7 @@ const SignupForm = ({ onSubmit, className, ...props }: SignupFormProps) => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form id="signupForm" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form id="signupForm" onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="email"

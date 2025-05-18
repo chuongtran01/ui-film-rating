@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { format, parseISO } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,54 +14,72 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { toast } from "@/hooks/use-toast";
 import { profileAccountFormSchema } from "@/app/[locale]/schemas/profile-account-form";
-import { Command, CommandList, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+import { EnumGender } from "@/enums/EnumGender";
+import { useMutation } from "@tanstack/react-query";
+import userService from "@/services/user";
+import { setPrincipalAction } from "@/redux/features/principal/principalSlice";
 
-type ProfileAccountFormValues = z.infer<typeof profileAccountFormSchema>;
-
-// This can come from your database or API.
-const defaultValues: Partial<ProfileAccountFormValues> = {
-  // name: "Your name",
-  // dob: new Date("2023-01-23"),
-  name: "",
-  dob: undefined,
-  email: "test@test.com",
-  gender: undefined,
-};
+export type ProfileAccountFormValues = z.infer<typeof profileAccountFormSchema>;
 
 const genders = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-  { value: "other", label: "Other" },
+  { value: EnumGender.MALE, label: "Male" },
+  { value: EnumGender.FEMALE, label: "Female" },
+  { value: EnumGender.OTHER, label: "Other" },
 ];
 
 const ProfileAccountForm = () => {
+  const principalState = useSelector((state: RootState) => state.principal);
+  const dispatch = useDispatch();
+
+  const defaultValues: Partial<ProfileAccountFormValues> = {
+    displayName: principalState.displayName ?? "",
+    dob: principalState.dob ? parseISO(principalState.dob) : undefined,
+    email: principalState.email ?? "",
+    gender: principalState.gender ?? undefined,
+  };
+
   const form = useForm<ProfileAccountFormValues>({
     resolver: zodResolver(profileAccountFormSchema),
     defaultValues,
   });
 
-  function onSubmit(data: ProfileAccountFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const mutation = useMutation({
+    mutationFn: userService.updateMyAccountInformation,
+    onSuccess: (data) => {
+      toast({
+        title: "Account updated",
+        description: "Your account has been updated",
+      });
+
+      dispatch(setPrincipalAction(data));
+    },
+    onError: () => {
+      toast({
+        title: "Account update failed",
+        description: "Please try again",
+      });
+    },
+  });
+
+  function onFormSubmit(data: ProfileAccountFormValues) {
+    mutation.mutate(data);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="name"
+          name="displayName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Your name" {...field} className="w-72" />
+                <Input placeholder="Your name" {...field} className="w-72" value={field.value} />
               </FormControl>
               <FormDescription>This is the name that will be displayed on your profile.</FormDescription>
               <FormMessage />
@@ -75,7 +93,7 @@ const ProfileAccountForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} disabled className="w-72 bg-gray-100" />
+                <Input {...field} disabled className="w-72 bg-gray-100" value={field.value} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,7 +109,7 @@ const ProfileAccountForm = () => {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button variant={"outline"} className={cn("w-[240px] pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
-                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                      {field.value ? format(field.value, "yyyy-MM-dd") : <span>Pick a date</span>}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
@@ -111,36 +129,20 @@ const ProfileAccountForm = () => {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Gender</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button variant="outline" role="combobox" className={cn("w-[200px] justify-between", !field.value && "text-muted-foreground")}>
-                      {field.value ? genders.find((gender) => gender.value === field.value)?.label : "Select gender"}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandList>
-                      <CommandGroup>
-                        {genders.map((gender) => (
-                          <CommandItem
-                            value={gender.label}
-                            key={gender.value}
-                            onSelect={() => {
-                              form.setValue("gender", gender.value);
-                            }}
-                          >
-                            <Check className={cn("mr-2", gender.value === field.value ? "opacity-100" : "opacity-0")} />
-                            {gender.label}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-40">
+                    <SelectValue placeholder="Select a gender" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {genders.map((gender) => (
+                    <SelectItem key={gender.value} value={gender.value}>
+                      {gender.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

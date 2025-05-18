@@ -7,9 +7,17 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/auth": "/auth",
-    "/profile/[id]": "/profile/[id]",
-    "/profile/[id]/watchlist": "/profile/[id]/watchlist",
-    "/settings": "/settings",
+    "/profile/watchlist": "/profile/watchlist",
+    "/profile/account": "/profile/account",
+    "/profile/password": "/profile/password",
+    "/profile/reviews": "/profile/reviews",
+    "/movies": "/movies",
+    "/series": "/series",
+    "/show/[id]": "/show/[id]",
+    "/show/[id]/reviews": "/show/[id]/reviews",
+    "/admin": "/admin",
+    "/admin/shows": "/admin/shows",
+    "/admin/users": "/admin/users",
   },
 });
 

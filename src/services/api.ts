@@ -76,7 +76,7 @@ apiService.interceptors.response.use(
       await persistor.purge();
 
       if (typeof window !== "undefined") {
-        window.location.href = "/login";
+        window.location.href = "/auth";
       }
 
       console.error("Unauthorized. Redirecting to login...");
@@ -89,7 +89,7 @@ apiService.interceptors.response.use(
       if (!refreshToken || isRefreshTokenExpired) {
         configService.clearAccessTokenAndRefreshToken();
 
-        window.location.href = "/login";
+        window.location.href = "/auth";
         persistor.purge();
       }
 
@@ -120,7 +120,7 @@ apiService.interceptors.response.use(
 
           configService.clearAccessTokenAndRefreshToken();
 
-          window.location.href = "/login"; // Adjust the login path
+          window.location.href = "/auth"; // Adjust the login path
           persistor.purge();
 
           return Promise.reject(refreshError);

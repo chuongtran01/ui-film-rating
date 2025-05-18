@@ -8,24 +8,68 @@ import { z } from "zod";
 
 import { loginFormSchema } from "@/app/[locale]/schemas/login-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
+import { useMutation } from "@tanstack/react-query";
+import authService from "@/services/auth";
+import { jwtDecode } from "jwt-decode";
+import { IBaseUser } from "@/interfaces/base";
+import { CustomJwtPayload } from "@/interfaces/auth";
+import { EnumRole } from "@/enums/EnumRole";
+import { setPrincipalAction } from "@/redux/features/principal/principalSlice";
+import { useRouter } from "@/i18n/routing";
+import { useDispatch } from "react-redux";
+import { toast } from "@/hooks/use-toast";
+import { EnumGender } from "@/enums/EnumGender";
 type LoginFormProps = {
-  onSubmit: (values: LoginFormValues) => void;
+  onSubmit?: () => void;
   className?: string;
 };
 
-type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 const defaultValues: Partial<LoginFormValues> = {
-  username: "",
+  email: "",
   password: "",
 };
 
 const LoginForm = ({ onSubmit, className, ...props }: LoginFormProps) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues,
   });
+
+  const mutation = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (response) => {
+      const decodedUser = jwtDecode(response.accessToken) as CustomJwtPayload;
+
+      const loginUser: IBaseUser = {
+        id: decodedUser.id,
+        displayName: decodedUser.displayName,
+        role: decodedUser.role as EnumRole,
+        email: decodedUser.sub || "",
+        dob: decodedUser.dob || undefined,
+        gender: decodedUser.gender as EnumGender,
+        avatarUrl: decodedUser.avatarUrl || "https://github.com/shadcn.png",
+      };
+
+      dispatch(setPrincipalAction(loginUser));
+      form.reset();
+      onSubmit?.();
+    },
+    onError: (e) => {
+      toast({
+        title: "Login failed",
+        description: "Please try again",
+      });
+    },
+  });
+
+  const onFormSubmit = (values: LoginFormValues) => {
+    mutation.mutate(values);
+  };
 
   return (
     <Card className={cn("flex flex-col", className)} {...props}>
@@ -35,11 +79,11 @@ const LoginForm = ({ onSubmit, className, ...props }: LoginFormProps) => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form id="loginForm" onSubmit={form.handleSubmit(onSubmit)}>
+          <form id="loginForm" onSubmit={form.handleSubmit(onFormSubmit)}>
             <div className="flex flex-col gap-6">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-semibold">Email</FormLabel>

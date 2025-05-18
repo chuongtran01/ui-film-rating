@@ -72,7 +72,7 @@ export default function page() {
   return (
     <div className="min-h-screen container mx-auto w-full">
       <div className="max-w-screen-2xl">
-        <ShowList shows={shows} title="Top TV Shows" />
+        <ShowList shows={shows} title="Top Series" />
       </div>
     </div>
   );

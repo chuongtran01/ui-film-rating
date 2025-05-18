@@ -1,3 +1,4 @@
+import { EnumRole } from "@/enums/EnumRole";
 import { CustomJwtPayload } from "@/interfaces/auth";
 import { IBaseUser } from "@/interfaces/base";
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -19,11 +20,11 @@ const resetPrincipal: CaseReducer<IPrincipalState, PayloadAction<void>> = (state
 
 const initialState: IPrincipalState = {
   id: "1",
-  email: "",
-  firstName: "",
-  lastName: "",
-  active: false,
-  roles: [],
+  email: "test@test.com",
+  displayName: "Test",
+  role: EnumRole.ROLE_USER,
+  dob: undefined,
+  gender: undefined,
   isAuthenticated: false,
   avatarUrl: "",
 };

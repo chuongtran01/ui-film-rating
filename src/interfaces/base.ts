@@ -1,10 +1,13 @@
+import { EnumRole } from "@/enums/EnumRole";
+import { EnumGender } from "@/enums/EnumGender";
+
 interface IBaseUser {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  active: boolean;
-  roles: string[];
+  displayName: string;
+  role: EnumRole;
+  dob: string | undefined;
+  gender: EnumGender | undefined;
   avatarUrl: string;
 }
 

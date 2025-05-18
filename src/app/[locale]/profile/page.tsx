@@ -1,7 +1,5 @@
-import UserProfile from "@/components/profile/UserProfile";
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return <></>;
-};
-
-export default page;
+export default function Page() {
+  redirect("/profile/reviews");
+}
