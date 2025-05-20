@@ -2,7 +2,7 @@ import { ProfileAccountFormValues } from "@/components/profile/ProfileAccountFor
 import { IBaseUser } from "@/interfaces/base";
 import { apiService } from "@/services/api";
 
-const API_PREFIX = "user";
+const API_PREFIX = "users";
 
 const userService = {
   updateMyAccountInformation: async (data: ProfileAccountFormValues): Promise<IBaseUser> => {

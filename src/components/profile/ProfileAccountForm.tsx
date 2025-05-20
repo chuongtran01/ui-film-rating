@@ -12,7 +12,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { toast } from "@/hooks/use-toast";
 import { profileAccountFormSchema } from "@/app/[locale]/schemas/profile-account-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSelector } from "react-redux";
@@ -22,6 +21,7 @@ import { EnumGender } from "@/enums/EnumGender";
 import { useMutation } from "@tanstack/react-query";
 import userService from "@/services/user";
 import { setPrincipalAction } from "@/redux/features/principal/principalSlice";
+import toastService from "@/services/toast";
 
 export type ProfileAccountFormValues = z.infer<typeof profileAccountFormSchema>;
 
@@ -50,18 +50,12 @@ const ProfileAccountForm = () => {
   const mutation = useMutation({
     mutationFn: userService.updateMyAccountInformation,
     onSuccess: (data) => {
-      toast({
-        title: "Account updated",
-        description: "Your account has been updated",
-      });
+      toastService.success("Account updated", "Your account has been updated");
 
       dispatch(setPrincipalAction(data));
     },
     onError: () => {
-      toast({
-        title: "Account update failed",
-        description: "Please try again",
-      });
+      toastService.error("Account update failed", "Please try again");
     },
   });
 

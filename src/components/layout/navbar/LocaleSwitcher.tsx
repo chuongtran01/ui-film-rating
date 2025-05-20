@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Locale, routing, usePathname, useRouter } from "@/i18n/routing";
 import { useParams } from "next/navigation";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useLocale } from "next-intl";
 
 export default function LocaleSwitcher() {

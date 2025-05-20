@@ -56,8 +56,8 @@ const LoginForm = ({ onSubmit, className, ...props }: LoginFormProps) => {
       };
 
       dispatch(setPrincipalAction(loginUser));
-      form.reset();
       onSubmit?.();
+      form.reset();
     },
     onError: (e) => {
       toast({

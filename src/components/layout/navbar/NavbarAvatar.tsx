@@ -45,8 +45,8 @@ const NavbarAvatar = () => {
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">shadcn</p>
-                <p className="text-xs leading-none text-muted-foreground">m@example.com</p>
+                <p className="text-sm font-medium leading-none">{principalState.displayName}</p>
+                <p className="text-xs leading-none text-muted-foreground">{principalState.email}</p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -58,10 +58,7 @@ const NavbarAvatar = () => {
               ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>
-              Log out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (

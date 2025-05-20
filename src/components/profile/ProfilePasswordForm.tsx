@@ -9,8 +9,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { profilePasswordFormSchema } from "@/app/[locale]/schemas/profile-password-form";
+import { useMutation } from "@tanstack/react-query";
+import authService from "@/services/auth";
+import toastService from "@/services/toast";
 
-type ProfilePasswordFormValues = z.infer<typeof profilePasswordFormSchema>;
+export type ProfilePasswordFormValues = z.infer<typeof profilePasswordFormSchema>;
 
 const defaultValues: Partial<ProfilePasswordFormValues> = {
   currentPassword: "",
@@ -24,15 +27,19 @@ const ProfilePasswordForm = () => {
     defaultValues,
   });
 
+  const mutation = useMutation({
+    mutationFn: authService.changePassword,
+    onSuccess: () => {
+      toastService.success("Password updated", "Your password has been updated successfully");
+      form.reset();
+    },
+    onError: () => {
+      toastService.error("Error updating password", "Please try again");
+    },
+  });
+
   function onSubmit(data: ProfilePasswordFormValues) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+    mutation.mutate(data);
   }
 
   return (
@@ -60,7 +67,7 @@ const ProfilePasswordForm = () => {
               <FormControl>
                 <Input {...field} type="password" className="w-72" />
               </FormControl>
-              <FormDescription>Must be at least 6 characters with 1 number and special character.</FormDescription>
+              <FormDescription>Must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -75,7 +82,7 @@ const ProfilePasswordForm = () => {
               <FormControl>
                 <Input {...field} type="password" className="w-72" />
               </FormControl>
-              <FormDescription>Must be at least 6 characters with 1 number and special character.</FormDescription>
+              <FormDescription>Must be the same as the new password.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

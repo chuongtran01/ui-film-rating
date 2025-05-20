@@ -19,14 +19,14 @@ const resetPrincipal: CaseReducer<IPrincipalState, PayloadAction<void>> = (state
 };
 
 const initialState: IPrincipalState = {
-  id: "1",
-  email: "test@test.com",
-  displayName: "Test",
-  role: EnumRole.ROLE_USER,
+  id: undefined,
+  email: undefined,
+  displayName: undefined,
+  role: undefined,
   dob: undefined,
   gender: undefined,
   isAuthenticated: false,
-  avatarUrl: "",
+  avatarUrl: undefined,
 };
 
 const principalSlice = createSlice({

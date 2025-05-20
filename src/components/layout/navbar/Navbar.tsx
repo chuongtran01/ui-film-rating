@@ -11,7 +11,7 @@ import authService from "@/services/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
-import NavbarAvatar from "@/components/navbar/NavbarAvatar";
+import NavbarAvatar from "@/components/layout/navbar/NavbarAvatar";
 import { EnumRole } from "@/enums/EnumRole";
 
 export default function UserNavbar() {

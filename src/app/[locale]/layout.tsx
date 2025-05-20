@@ -3,14 +3,14 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import StoreProvider from "@/app/StoreProvider";
 import QueryProvider from "@/app/QueryProvider";
-import Navbar from "@/components/navbar/Navbar";
+import Navbar from "@/components/layout/navbar/Navbar";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import BackToTopButton from "@/components/BackToTopButton";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/layout/footer/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({

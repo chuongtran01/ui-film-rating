@@ -1,5 +1,6 @@
 import { LoginFormValues } from "@/components/authentication/LoginForm";
 import { SignupFormValues } from "@/components/authentication/SignupForm";
+import { ProfilePasswordFormValues } from "@/components/profile/ProfilePasswordForm";
 import { ILoginForm, ILoginFormResponse, ISignupFormResponse } from "@/interfaces/auth";
 import { IBaseUser } from "@/interfaces/base";
 import { apiService, refreshApiService } from "@/services/api";
@@ -26,6 +27,10 @@ const authService = {
     return response.data;
   },
 
+  changePassword: async (data: ProfilePasswordFormValues): Promise<void> => {
+    await apiService.post<void>(`${API_PREFIX}/change-password`, data);
+  },
+
   refreshAccessToken: async () => {
     const refreshToken = configService.getRefreshToken();
 
@@ -46,7 +51,8 @@ const authService = {
   },
 
   logout: async (): Promise<void> => {
-    return await apiService.post(`${API_PREFIX}/logout`);
+    await apiService.post(`${API_PREFIX}/logout`);
+    configService.clearAccessTokenAndRefreshToken();
   },
 
   getUser: async (): Promise<IBaseUser> => {
