@@ -47,7 +47,7 @@ const page = () => {
       </div>
       <Separator />
       <Tabs value={tab} onValueChange={handleTabChange} className="w-fit">
-        <TabsList className="flex flex-wrap gap-2">
+        <TabsList className="flex flex-wrap gap-2 w-fit">
           {tabs.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}
