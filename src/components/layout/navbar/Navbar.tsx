@@ -12,9 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import NavbarAvatar from "@/components/layout/navbar/NavbarAvatar";
-import { EnumRole } from "@/enums/EnumRole";
+import { UserRole } from "@/enums/UserRole";
+import { useTranslations } from "next-intl";
 
 export default function UserNavbar() {
+  const t = useTranslations();
+
   const dispatch = useDispatch();
   const router = useRouter();
   const principalState = useSelector((state: RootState) => state.principal);
@@ -31,25 +34,21 @@ export default function UserNavbar() {
 
   const menuItems = [
     {
-      title: "Home",
+      title: t("navbar.home"),
       href: "/",
     },
     {
-      title: "Movies",
+      title: t("navbar.movies"),
       href: "/movies",
     },
     {
-      title: "Series",
+      title: t("navbar.series"),
       href: "/series",
     },
-    // {
-    //   title: "Community",
-    //   href: "/community",
-    // },
     {
-      title: "Admin",
+      title: t("navbar.admin"),
       href: "/admin",
-      isVisible: principalState.role === EnumRole.ROLE_ADMIN,
+      isVisible: principalState.role === UserRole.ROLE_ADMIN,
     },
   ];
 
@@ -59,7 +58,7 @@ export default function UserNavbar() {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <Link href="/">
-              <span className="text-2xl font-semibold text-primary">Cinecritique</span>
+              <span className="text-2xl font-semibold text-primary">{t("navbar.logo")}</span>
             </Link>
           </div>
         </div>
@@ -86,7 +85,7 @@ export default function UserNavbar() {
 
         <div className="flex items-center space-x-4">
           <div>
-            <Input type="search" placeholder="Search..." className="md:w-[100px] lg:w-[300px] bg-background text-foreground" />
+            <Input type="search" placeholder={t("navbar.search")} className="md:w-[100px] lg:w-[300px] bg-background text-foreground" />
           </div>
           {/* <LocaleSwitcher /> */}
           <NavbarAvatar />

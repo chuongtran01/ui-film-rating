@@ -7,14 +7,18 @@ import { persistor, RootState } from "@/redux/store";
 import { useRouter } from "@/i18n/routing";
 import { resetPrincipalAction } from "@/redux/features/principal/principalSlice";
 import authService from "@/services/auth";
+import { useTranslations } from "next-intl";
 
 const NavbarAvatar = () => {
+  const t = useTranslations();
+
   const principalState = useSelector((state: RootState) => state.principal);
   const router = useRouter();
   const dispatch = useDispatch();
+
   const headerNavbarAvatarDropdownMenuItems = [
     {
-      title: "My Profile",
+      title: t("navbar.avatar.myProfile"),
       onClick: () => router.push({ pathname: "/profile/reviews" }),
     },
   ];
@@ -58,7 +62,7 @@ const NavbarAvatar = () => {
               ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>{t("navbar.avatar.logout")}</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (

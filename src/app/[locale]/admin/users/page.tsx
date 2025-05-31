@@ -1,61 +1,41 @@
 "use client";
 
-import AdminUsersAdmin from "@/components/admin/users/AdminUsersAdmin";
-import AdminUsersModerator from "@/components/admin/users/AdminUsersModerator";
-import AdminUsersUser from "@/components/admin/users/AdminUsersUser";
+import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getParam, setParam } from "@/lib/urlParams";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-
-const tabs = [
-  {
-    label: "User",
-    value: "user",
-    component: <AdminUsersUser />,
-  },
-  {
-    label: "Admin",
-    value: "admin",
-    component: <AdminUsersAdmin />,
-  },
-  {
-    label: "Moderator",
-    value: "moderator",
-    component: <AdminUsersModerator />,
-  },
-];
+import { getValidSearchParams } from "@/lib/data-table";
+import { getAllParams } from "@/lib/urlParams";
+import userService from "@/services/user";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import React from "react";
+import { useTranslations } from "next-intl";
+import { UsersTable } from "@/components/admin/users/table/UsersTable";
+import { searchUsersParamsCache } from "@/components/admin/users/table/validations";
 
 const page = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const tab = getParam(searchParams, "tab") || "user";
+  const t = useTranslations();
 
-  const handleTabChange = useCallback(
-    (value: string) => {
-      setParam(router, searchParams, "tab", value);
-    },
-    [router, searchParams]
-  );
+  const params = getAllParams(useSearchParams());
+  const searchParams = searchUsersParamsCache.parse(params);
+  const filteredSearch = getValidSearchParams(searchParams);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["users", filteredSearch],
+    queryFn: () => userService.getUsers(filteredSearch),
+    placeholderData: (previousData) => previousData,
+    staleTime: 5 * 60 * 1000,
+  });
 
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold">Users</h3>
-        <p className="text-sm text-muted-foreground">Manage the users.</p>
+        <h3 className="text-lg font-semibold">{t("admin.users.title")}</h3>
+        <p className="text-sm text-muted-foreground">{t("admin.users.description")}</p>
       </div>
       <Separator />
-      <Tabs value={tab} onValueChange={handleTabChange} className="w-fit">
-        <TabsList className="flex flex-wrap gap-2">
-          {tabs.map((tab) => (
-            <TabsTrigger key={tab.value} value={tab.value}>
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <TabsContent value={tab}>{tabs.find((t) => t.value === tab)?.component}</TabsContent>
-      </Tabs>
+      <React.Suspense fallback={<DataTableSkeleton columnCount={7} filterCount={2} cellWidths={["10rem", "30rem", "10rem", "10rem", "6rem", "6rem", "6rem"]} shrinkZero />}>
+        <UsersTable data={data} />
+      </React.Suspense>
     </div>
   );
 };

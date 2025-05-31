@@ -1,6 +1,7 @@
 import HeroCarousel from "@/components/landing-page/HeroCarousel";
 import Subscription from "@/components/landing-page/Subscription";
 import ShowsRecommendation from "@/components/landing-page/ShowsRecommendation";
+import { useTranslations } from "next-intl";
 
 const shows = [
   {
@@ -62,13 +63,15 @@ const shows = [
 ];
 
 const LandingPage = () => {
+  const t = useTranslations();
+
   return (
     <div className="flex flex-col gap-4">
       <HeroCarousel />
       <div className="flex flex-col gap-6 container mx-auto">
-        <ShowsRecommendation title="New Releases" shows={shows} viewAllHref="/movies" />
-        <ShowsRecommendation title="Trendings" shows={shows} viewAllHref="/movies" />
-        <ShowsRecommendation title="Upcoming Releases" shows={shows} viewAllHref="/movies" />
+        <ShowsRecommendation title={t("landingPage.section.newRelease.title")} shows={shows} viewAllHref="/movies" />
+        <ShowsRecommendation title={t("landingPage.section.trendings.title")} shows={shows} viewAllHref="/movies" />
+        <ShowsRecommendation title={t("landingPage.section.upcoming.title")} shows={shows} viewAllHref="/movies" />
         <Subscription />
       </div>
     </div>

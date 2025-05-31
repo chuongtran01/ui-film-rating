@@ -1,38 +1,38 @@
 import { Metadata } from "next";
-import Image from "next/image";
-
-import { Separator } from "@/components/ui/separator";
 import { SidebarNav } from "@/components/common/SidebarNav";
+import { useTranslations } from "next-intl";
 
 export const metadata: Metadata = {
   title: "My Profile",
   description: "My profile page.",
 };
 
-const sidebarNavItems = [
-  {
-    title: "Ratings & Reviews",
-    href: "/profile/reviews",
-  },
-  {
-    title: "Watchlist",
-    href: "/profile/watchlist",
-  },
-  {
-    title: "My Account",
-    href: "/profile/account",
-  },
-  {
-    title: "Password",
-    href: "/profile/password",
-  },
-];
-
 interface ProfileLayoutProps {
   children: React.ReactNode;
 }
 
 export default function ProfileLayout({ children }: ProfileLayoutProps) {
+  const t = useTranslations();
+
+  const sidebarNavItems = [
+    {
+      title: t("myProfile.ratingsAndReviews.sidebar"),
+      href: "/profile/reviews",
+    },
+    {
+      title: t("myProfile.watchlist.sidebar"),
+      href: "/profile/watchlist",
+    },
+    {
+      title: t("myProfile.myAccount.sidebar"),
+      href: "/profile/account",
+    },
+    {
+      title: t("myProfile.password.sidebar"),
+      href: "/profile/password",
+    },
+  ];
+
   return (
     <div className="container mx-auto">
       <div className="hidden space-y-6 p-10 pb-16 md:block">

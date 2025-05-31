@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { configService } from "@/services/config";
 import authService from "@/services/auth";
 import { persistor } from "@/redux/store";

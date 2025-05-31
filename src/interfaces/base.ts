@@ -1,14 +1,16 @@
-import { EnumRole } from "@/enums/EnumRole";
-import { EnumGender } from "@/enums/EnumGender";
+import { UserRole } from "@/enums/UserRole";
+import { UserGender } from "@/enums/UserGender";
 
 interface IBaseUser {
   id: string | undefined;
   email: string | undefined;
   displayName: string | undefined;
-  role: EnumRole | undefined;
-  dob: string | undefined;
-  gender: EnumGender | undefined;
+  role: UserRole | undefined;
+  dob: Date;
+  gender: UserGender | undefined;
   avatarUrl: string | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
 }
 
 export type { IBaseUser };
