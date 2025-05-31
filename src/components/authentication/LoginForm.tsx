@@ -13,12 +13,12 @@ import authService from "@/services/auth";
 import { jwtDecode } from "jwt-decode";
 import { IBaseUser } from "@/interfaces/base";
 import { CustomJwtPayload } from "@/interfaces/auth";
-import { EnumRole } from "@/enums/EnumRole";
+import { UserRole } from "@/enums/UserRole";
 import { setPrincipalAction } from "@/redux/features/principal/principalSlice";
 import { useRouter } from "@/i18n/routing";
 import { useDispatch } from "react-redux";
 import { toast } from "@/hooks/use-toast";
-import { EnumGender } from "@/enums/EnumGender";
+import { UserGender } from "@/enums/UserGender";
 type LoginFormProps = {
   onSubmit?: () => void;
   className?: string;
@@ -48,10 +48,10 @@ const LoginForm = ({ onSubmit, className, ...props }: LoginFormProps) => {
       const loginUser: IBaseUser = {
         id: decodedUser.id,
         displayName: decodedUser.displayName,
-        role: decodedUser.role as EnumRole,
+        role: decodedUser.role as UserRole,
         email: decodedUser.sub || "",
         dob: decodedUser.dob || undefined,
-        gender: decodedUser.gender as EnumGender,
+        gender: decodedUser.gender as UserGender,
         avatarUrl: decodedUser.avatarUrl || "https://github.com/shadcn.png",
       };
 

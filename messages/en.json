@@ -1,5 +1,550 @@
 {
-  "HomePage": {
-    "title": "Hello world"
+  "landingPage": {
+    "section": {
+      "newRelease": {
+        "title": "New Release",
+        "viewAll": "View All"
+      },
+      "trendings": {
+        "title": "Trendings",
+        "viewAll": "View All"
+      },
+      "upcoming": {
+        "title": "Upcoming Releases",
+        "viewAll": "View All"
+      }
+    },
+    "stayUpdated": {
+      "title": "Stay Updated",
+      "description": "Get the latest news and updates from your favorite shows.",
+      "email": {
+        "placeholder": "Enter your email"
+      },
+      "subscribe": "Subscribe"
+    }
+  },
+  "navbar": {
+    "logo": "Cinecritique",
+    "home": "Home",
+    "movies": "Movies",
+    "series": "Series",
+    "admin": "Admin",
+    "search": "Search...",
+    "avatar": {
+      "myProfile": "My profile",
+      "logout": "Log out"
+    }
+  },
+  "footer": {
+    "logo": "Cinecritique",
+    "overview": {
+      "title": "Overview",
+      "links": {
+        "about": "About",
+        "helpCenter": "Help Center",
+        "careers": "Careers",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service"
+      }
+    },
+    "followUs": {
+      "title": "Follow Us"
+    },
+    "recommended": {
+      "title": "Recommended",
+      "movies": "Top 100 Movies",
+      "series": "Top 100 Series"
+    },
+    "allRightsReserved": "© 2025 DOE, INC. ALL RIGHTS RESERVED."
+  },
+  "admin": {
+    "shows": {
+      "sidebar": "Shows",
+      "title": "Shows",
+      "description": "Manage shows, movies, series."
+    },
+    "users": {
+      "sidebar": "Users",
+      "title": "Users",
+      "description": "Manage users.",
+      "updateUserSheet": {
+        "title": "Update user",
+        "description": "Update the user details and save the changes",
+        "buttons": {
+          "cancel": "Cancel",
+          "save": "Save"
+        },
+        "successMessage": {
+          "title": "User updated",
+          "description": "The user has been updated successfully."
+        },
+        "errorMessage": {
+          "title": "User update failed",
+          "description": "Please try again."
+        }
+      }
+    },
+    "filters": {
+      "sidebar": "Filters",
+      "title": "Filters",
+      "description": "Manage filters.",
+      "tabs": {
+        "genres": {
+          "title": "Genres",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Genre deleted",
+              "description": "The genre has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Genre deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Genre",
+          "createDialog": {
+            "title": "Create Genre",
+            "description": "Create a new genre.",
+            "successMessage": {
+              "title": "Genre created",
+              "description": "The genre has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Genre creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Genre",
+            "description": "Update the genre details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Genre updated",
+              "description": "The genre has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Genre update failed",
+              "description": "Please try again."
+            }
+          }
+        },
+        "languages": {
+          "title": "Languages",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Language deleted",
+              "description": "The language has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Language deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Language",
+          "createDialog": {
+            "title": "Create Language",
+            "description": "Create a new language.",
+            "successMessage": {
+              "title": "Language created",
+              "description": "The language has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Language creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Language",
+            "description": "Update the language details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Language updated",
+              "description": "The language has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Language update failed",
+              "description": "Please try again."
+            }
+          }
+        },
+        "countries": {
+          "title": "Countries",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Country deleted",
+              "description": "The country has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Country deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Country",
+          "createDialog": {
+            "title": "Create Country",
+            "description": "Create a new country.",
+            "successMessage": {
+              "title": "Country created",
+              "description": "The country has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Country creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Country",
+            "description": "Update the country details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Country updated",
+              "description": "The country has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Country update failed",
+              "description": "Please try again."
+            }
+          },
+          "saveCountryForm": {
+            "flag": {
+              "label": "Flag URL",
+              "placeholder": "Enter flag URL"
+            },
+            "name": {
+              "label": "Name",
+              "placeholder": "Enter name"
+            },
+            "id": {
+              "label": "ID",
+              "placeholder": "Enter ID"
+            }
+          }
+        },
+        "streaming-platforms": {
+          "title": "Streaming Platforms",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Streaming platform deleted",
+              "description": "The streaming platform has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Streaming platform deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Streaming Platform",
+          "createDialog": {
+            "title": "Create Streaming Platform",
+            "description": "Create a new streaming platform.",
+            "successMessage": {
+              "title": "Streaming platform created",
+              "description": "The streaming platform has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Streaming platform creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Streaming Platform",
+            "description": "Update the streaming platform details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Streaming platform updated",
+              "description": "The streaming platform has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Streaming platform update failed",
+              "description": "Please try again."
+            }
+          },
+          "saveStreamingPlatformForm": {
+            "name": {
+              "label": "Name",
+              "placeholder": "Enter name"
+            },
+            "id": {
+              "label": "ID",
+              "placeholder": "Enter ID"
+            },
+            "logo": {
+              "label": "Logo URL",
+              "placeholder": "Enter logo URL"
+            },
+            "url": {
+              "label": "URL",
+              "placeholder": "Enter URL"
+            }
+          }
+        },
+        "show-statuses": {
+          "title": "Statuses",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Show status deleted",
+              "description": "The show status has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Show status deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Status",
+          "createDialog": {
+            "title": "Create Show Status",
+            "description": "Create a new show status.",
+            "successMessage": {
+              "title": "Show status created",
+              "description": "The show status has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Show status creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Show Status",
+            "description": "Update the show status details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Show status updated",
+              "description": "The show status has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Show status update failed",
+              "description": "Please try again."
+            }
+          }
+        }
+      }
+    }
+  },
+  "myProfile": {
+    "ratingsAndReviews": {
+      "sidebar": "Ratings and Reviews",
+      "title": "Ratings and Reviews",
+      "description": "Manage your ratings and reviews."
+    },
+    "watchlist": {
+      "sidebar": "Watchlist",
+      "title": "Watchlist",
+      "description": "Manage your watchlist."
+    },
+    "myAccount": {
+      "sidebar": "My Account",
+      "title": "Account",
+      "description": "Update your account details.",
+      "submitButton": "Update Account",
+      "successMessage": {
+        "title": "Account updated",
+        "description": "Your account has been updated successfully."
+      },
+      "errorMessage": {
+        "title": "Account update failed",
+        "description": "Please try again."
+      }
+    },
+    "password": {
+      "sidebar": "Password",
+      "title": "Password",
+      "description": "Update your password.",
+      "form": {
+        "currentPassword": {
+          "label": "Current Password"
+        },
+        "newPassword": {
+          "label": "New Password",
+          "description": "Must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character."
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "description": "Must be the same as the new password."
+        }
+      },
+      "button": "Update Password"
+    }
+  },
+  "updateUserForm": {
+    "form": {
+      "displayName": {
+        "label": "Display Name",
+        "placeholder": "Enter display name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "role": {
+        "label": "Role",
+        "placeholder": "Select a role"
+      },
+      "gender": {
+        "label": "Gender",
+        "placeholder": "Select a gender"
+      },
+      "dob": {
+        "label": "Date of Birth"
+      },
+      "active": {
+        "label": "Active"
+      }
+    }
+  },
+  "saveFilterForm": {
+    "form": {
+      "id": {
+        "label": "ID",
+        "placeholder": "Enter ID"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      }
+    }
+  },
+  "showFilter": {
+    "title": "Filters",
+    "categories": {
+      "releaseYear": {
+        "title": "Release Year",
+        "input": {
+          "fromPlaceholder": "From",
+          "toPlaceholder": "To"
+        }
+      },
+      "rating": {
+        "title": "Rating",
+        "input": {
+          "fromPlaceholder": "From",
+          "toPlaceholder": "To"
+        }
+      },
+      "genres": {
+        "title": "Genres",
+        "options": {
+          "action": "Action",
+          "adventure": "Adventure",
+          "comedy": "Comedy",
+          "drama": "Drama",
+          "fantasy": "Fantasy",
+          "horror": "Horror",
+          "mystery": "Mystery",
+          "romance": "Romance",
+          "sci-fi": "Sci-Fi",
+          "thriller": "Thriller",
+          "western": "Western"
+        },
+        "showAll": "Show All",
+        "showLess": "Show Less"
+      },
+      "countries": {
+        "title": "Countries",
+        "options": {
+          "cn": "China",
+          "us": "United States",
+          "in": "India",
+          "jp": "Japan",
+          "kr": "Korea",
+          "ru": "Russia",
+          "gb": "UK",
+          "fr": "France",
+          "de": "Germany"
+        },
+        "showAll": "Show All",
+        "showLess": "Show Less"
+      },
+      "streamingPlatforms": {
+        "title": "Streaming Platforms",
+        "options": {
+          "netflix": "Netflix",
+          "amazon": "Amazon",
+          "hulu": "Hulu",
+          "disney": "Disney",
+          "apple": "Apple",
+          "peacock": "Peacock",
+          "hbo": "HBO",
+          "showtime": "Showtime",
+          "starz": "Starz"
+        },
+        "showAll": "Show All",
+        "showLess": "Show Less"
+      },
+      "statuses": {
+        "title": "Statuses",
+        "options": {
+          "ongoing": "Ongoing",
+          "completed": "Completed",
+          "upcoming": "Upcoming"
+        }
+      },
+      "buttons": {
+        "reset": "Reset",
+        "search": "Search"
+      }
+    }
   }
 }

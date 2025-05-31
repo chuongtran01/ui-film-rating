@@ -7,11 +7,11 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/hooks/use-toast";
 import { profilePasswordFormSchema } from "@/app/[locale]/schemas/profile-password-form";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/auth";
 import toastService from "@/services/toast";
+import { useTranslations } from "next-intl";
 
 export type ProfilePasswordFormValues = z.infer<typeof profilePasswordFormSchema>;
 
@@ -22,6 +22,8 @@ const defaultValues: Partial<ProfilePasswordFormValues> = {
 };
 
 const ProfilePasswordForm = () => {
+  const t = useTranslations();
+
   const form = useForm<ProfilePasswordFormValues>({
     resolver: zodResolver(profilePasswordFormSchema),
     defaultValues,
@@ -50,7 +52,7 @@ const ProfilePasswordForm = () => {
           name="currentPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Current Password</FormLabel>
+              <FormLabel>{t("myProfile.password.form.currentPassword.label")}</FormLabel>
               <FormControl>
                 <Input {...field} type="password" className="w-72" />
               </FormControl>
@@ -63,11 +65,11 @@ const ProfilePasswordForm = () => {
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel>{t("myProfile.password.form.newPassword.label")}</FormLabel>
               <FormControl>
                 <Input {...field} type="password" className="w-72" />
               </FormControl>
-              <FormDescription>Must be at least 8 characters long and contain at least one digit, one uppercase letter, one lowercase letter, and one special character.</FormDescription>
+              <FormDescription>{t("myProfile.password.form.newPassword.description")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -78,17 +80,17 @@ const ProfilePasswordForm = () => {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>{t("myProfile.password.form.confirmPassword.label")}</FormLabel>
               <FormControl>
                 <Input {...field} type="password" className="w-72" />
               </FormControl>
-              <FormDescription>Must be the same as the new password.</FormDescription>
+              <FormDescription>{t("myProfile.password.form.confirmPassword.description")}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit">Update password</Button>
+        <Button type="submit">{t("myProfile.password.button")}</Button>
       </form>
     </Form>
   );

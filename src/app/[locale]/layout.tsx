@@ -4,6 +4,7 @@ import "../globals.css";
 import StoreProvider from "@/app/StoreProvider";
 import QueryProvider from "@/app/QueryProvider";
 import Navbar from "@/components/layout/navbar/Navbar";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -49,19 +50,21 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}>
-        <NextIntlClientProvider messages={messages}>
-          <QueryProvider>
-            <StoreProvider>
-              <main>
+        <NuqsAdapter>
+          <NextIntlClientProvider messages={messages}>
+            <QueryProvider>
+              <StoreProvider>
+                {/* <main> */}
                 <Navbar />
                 {children}
                 <Footer />
-              </main>
-              <Toaster />
-            </StoreProvider>
-          </QueryProvider>
-        </NextIntlClientProvider>
-        <BackToTopButton />
+                {/* </main> */}
+                <Toaster />
+              </StoreProvider>
+            </QueryProvider>
+          </NextIntlClientProvider>
+          <BackToTopButton />
+        </NuqsAdapter>
       </body>
     </html>
   );

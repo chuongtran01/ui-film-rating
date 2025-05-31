@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
-import { CircleHelp } from "lucide-react";
 
 interface ReviewScoreContainerProps {
   score: number;

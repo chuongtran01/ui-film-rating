@@ -1,4 +1,4 @@
-import { EnumRole } from "@/enums/EnumRole";
+import { UserRole } from "@/enums/UserRole";
 import { CustomJwtPayload } from "@/interfaces/auth";
 import { IBaseUser } from "@/interfaces/base";
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";

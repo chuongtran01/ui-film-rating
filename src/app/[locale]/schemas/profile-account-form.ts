@@ -10,10 +10,18 @@ export const profileAccountFormSchema = z.object({
       message: "Name must not be longer than 30 characters.",
     }),
   email: z.string().email(),
-  dob: z
+  dob: z.coerce
     .date({
       required_error: "A date of birth is required.",
     })
+    .refine(
+      (date) => {
+        return date < new Date();
+      },
+      {
+        message: "Date of birth must be in the past.",
+      }
+    )
     .optional(),
   gender: z.string().optional(),
 });

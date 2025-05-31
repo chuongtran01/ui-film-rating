@@ -1,5 +1,5 @@
-import { EnumRole } from "@/enums/EnumRole";
-import { EnumGender } from "@/enums/EnumGender";
+import { UserRole } from "@/enums/UserRole";
+import { UserGender } from "@/enums/UserGender";
 import { IBaseUser } from "@/interfaces/base";
 import { JwtPayload } from "jwt-decode";
 
@@ -19,17 +19,17 @@ interface ISignupFormResponse {
   id: string;
   displayName: string;
   email: string;
-  role: EnumRole;
-  gender: EnumGender;
+  role: UserRole;
+  gender: UserGender;
 }
 
 interface CustomJwtPayload extends JwtPayload {
   id: string;
   email: string;
   displayName: string;
-  role: EnumRole;
-  gender: EnumGender;
-  dob: string | undefined;
+  role: UserRole;
+  gender: UserGender;
+  dob: Date | undefined;
   avatarUrl: string;
 }
 
