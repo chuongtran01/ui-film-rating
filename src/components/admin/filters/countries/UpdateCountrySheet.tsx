@@ -36,13 +36,14 @@ export function UpdateCountrySheet({ country, ...props }: UpdateCountrySheetProp
     resolver: zodResolver(saveCountrySchema),
     defaultValues: {
       id: country.id,
+      code: country.code,
       name: country.name,
       flag: country.flag,
     },
   });
 
   const updateCountryMutation = useMutation({
-    mutationFn: (data: SaveCountrySchema) => filterService.updateCountry(country.id, data),
+    mutationFn: (data: SaveCountrySchema) => filterService.updateCountry(country.id!, data),
     onSuccess: (response) => {
       toastService.success(t("admin.filters.tabs.countries.updateDialog.successMessage.title"), t("admin.filters.tabs.countries.updateDialog.successMessage.description"));
       queryClient.setQueryData(["countries", filteredSearch], (oldData: any) => {

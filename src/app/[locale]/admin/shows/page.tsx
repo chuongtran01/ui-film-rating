@@ -1,3 +1,4 @@
+import { ShowsTable } from "@/components/admin/shows/table/ShowsTable";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 
@@ -11,7 +12,7 @@ const page = () => {
         <p className="text-sm text-muted-foreground">{t("admin.shows.description")}</p>
       </div>
       <Separator />
-      <div>Shows</div>
+      <ShowsTable />
     </div>
   );
 };

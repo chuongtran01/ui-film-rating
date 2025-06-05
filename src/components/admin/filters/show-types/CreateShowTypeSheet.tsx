@@ -19,10 +19,12 @@ import { searchShowStatusesParamsCache, saveShowStatusSchema } from "@/component
 import { SaveShowStatusSchema } from "@/components/admin/filters/show-statuses/validation";
 import filterService from "@/services/filter";
 import SaveFilterForm from "@/components/common/SaveFilterForm";
+import { SaveShowTypeSchema } from "./validation";
+import { saveShowTypeSchema } from "./validation";
 
-interface CreateShowStatusSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {}
+interface CreateShowTypeSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {}
 
-export function CreateShowStatusSheet({ ...props }: CreateShowStatusSheetProps) {
+export function CreateShowTypeSheet({ ...props }: CreateShowTypeSheetProps) {
   const t = useTranslations();
 
   const params = getAllParams(useSearchParams());
@@ -30,8 +32,8 @@ export function CreateShowStatusSheet({ ...props }: CreateShowStatusSheetProps) 
   const filteredSearch = getValidSearchParams(searchParams);
 
   const queryClient = useQueryClient();
-  const form = useForm<SaveShowStatusSchema>({
-    resolver: zodResolver(saveShowStatusSchema),
+  const form = useForm<SaveShowTypeSchema>({
+    resolver: zodResolver(saveShowTypeSchema),
     defaultValues: {
       id: undefined,
       code: "",
@@ -39,8 +41,8 @@ export function CreateShowStatusSheet({ ...props }: CreateShowStatusSheetProps) 
     },
   });
 
-  const createShowStatusMutation = useMutation({
-    mutationFn: (data: SaveShowStatusSchema) => filterService.createShowStatus(data),
+  const createShowTypeMutation = useMutation({
+    mutationFn: (data: SaveShowTypeSchema) => filterService.createShowType(data),
     onSuccess: (response) => {
       toastService.success(t("admin.filters.tabs.show-statuses.createDialog.successMessage.title"), t("admin.filters.tabs.show-statuses.createDialog.successMessage.description"));
       queryClient.setQueryData(["show-statuses", filteredSearch], (oldData: any) => {
@@ -57,8 +59,8 @@ export function CreateShowStatusSheet({ ...props }: CreateShowStatusSheetProps) 
     },
   });
 
-  function onSubmit(input: SaveShowStatusSchema) {
-    createShowStatusMutation.mutate(input);
+  function onSubmit(input: SaveShowTypeSchema) {
+    createShowTypeMutation.mutate(input);
   }
 
   return (
@@ -75,8 +77,8 @@ export function CreateShowStatusSheet({ ...props }: CreateShowStatusSheetProps) 
                 {t("admin.filters.tabs.show-statuses.createDialog.buttons.cancel")}
               </Button>
             </SheetClose>
-            <Button disabled={createShowStatusMutation.isPending}>
-              {createShowStatusMutation.isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
+            <Button disabled={createShowTypeMutation.isPending}>
+              {createShowTypeMutation.isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
               {t("admin.filters.tabs.show-statuses.createDialog.buttons.create")}
             </Button>
           </SheetFooter>

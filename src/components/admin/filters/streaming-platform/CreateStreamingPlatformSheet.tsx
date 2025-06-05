@@ -30,7 +30,8 @@ export function CreateStreamingPlatformSheet({ ...props }) {
   const form = useForm<SaveStreamingPlatformSchema>({
     resolver: zodResolver(saveStreamingPlatformSchema),
     defaultValues: {
-      id: "",
+      id: undefined,
+      code: "",
       name: "",
       logo: "",
       url: "",

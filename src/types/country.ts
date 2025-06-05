@@ -1,5 +1,6 @@
 export type Country = {
-  id: string;
+  id?: number;
+  code: string;
   name: string;
   flag?: string;
   createdAt?: Date;

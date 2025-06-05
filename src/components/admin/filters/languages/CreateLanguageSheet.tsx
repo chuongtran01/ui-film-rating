@@ -32,7 +32,8 @@ export function CreateLanguageSheet({ ...props }: CreateLanguageSheetProps) {
   const form = useForm<SaveLanguageSchema>({
     resolver: zodResolver(saveLanguageSchema),
     defaultValues: {
-      id: "",
+      id: undefined,
+      code: "",
       name: "",
     },
   });

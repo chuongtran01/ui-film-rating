@@ -32,7 +32,8 @@ export function CreateGenreSheet({ ...props }: CreateGenreSheetProps) {
   const form = useForm<SaveGenreSchema>({
     resolver: zodResolver(saveGenreSchema),
     defaultValues: {
-      id: "",
+      id: undefined,
+      code: "",
       name: "",
     },
   });

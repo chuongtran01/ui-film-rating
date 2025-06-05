@@ -20,12 +20,12 @@ const SaveCountryForm = <T extends FieldValues>({ children, form, onSubmit }: Sa
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4">
         <FormField
           control={form.control}
-          name={"id" as FieldPath<T>}
+          name={"code" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("admin.filters.tabs.countries.saveCountryForm.id.label")}</FormLabel>
+              <FormLabel required={true}>{t("admin.filters.tabs.countries.saveCountryForm.code.label")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("admin.filters.tabs.countries.saveCountryForm.id.placeholder")} {...field} className="resize-none w-60" />
+                <Input placeholder={t("admin.filters.tabs.countries.saveCountryForm.code.placeholder")} {...field} className="resize-none w-60" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -37,7 +37,7 @@ const SaveCountryForm = <T extends FieldValues>({ children, form, onSubmit }: Sa
           name={"name" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("admin.filters.tabs.countries.saveCountryForm.name.label")}</FormLabel>
+              <FormLabel required={true}>{t("admin.filters.tabs.countries.saveCountryForm.name.label")}</FormLabel>
               <FormControl>
                 <Input className="resize-none w-60" placeholder={t("admin.filters.tabs.countries.saveCountryForm.name.placeholder")} {...field} />
               </FormControl>

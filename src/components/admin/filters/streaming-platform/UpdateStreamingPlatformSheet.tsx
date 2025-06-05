@@ -36,6 +36,7 @@ export function UpdateStreamingPlatformSheet({ streamingPlatform, ...props }: Up
     resolver: zodResolver(saveStreamingPlatformSchema),
     defaultValues: {
       id: streamingPlatform.id,
+      code: streamingPlatform.code,
       name: streamingPlatform.name,
       logo: streamingPlatform.logo,
       url: streamingPlatform.url,
@@ -43,7 +44,7 @@ export function UpdateStreamingPlatformSheet({ streamingPlatform, ...props }: Up
   });
 
   const updateStreamingPlatformMutation = useMutation({
-    mutationFn: (data: SaveStreamingPlatformSchema) => filterService.updateStreamingPlatform(streamingPlatform.id, data),
+    mutationFn: (data: SaveStreamingPlatformSchema) => filterService.updateStreamingPlatform(streamingPlatform.id!, data),
     onSuccess: (response) => {
       toastService.success(t("admin.filters.tabs.streaming-platforms.updateDialog.successMessage.title"), t("admin.filters.tabs.streaming-platforms.updateDialog.successMessage.description"));
       queryClient.setQueryData(["streaming-platforms", filteredSearch], (oldData: any) => {

@@ -30,7 +30,8 @@ export function CreateCountrySheet({ ...props }) {
   const form = useForm<SaveCountrySchema>({
     resolver: zodResolver(saveCountrySchema),
     defaultValues: {
-      id: "",
+      id: undefined,
+      code: "",
       name: "",
       flag: "",
     },

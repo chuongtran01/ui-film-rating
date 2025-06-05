@@ -3,8 +3,8 @@ import { IBaseUser } from "@/interfaces/base";
 import { UserRole } from "@/enums/UserRole";
 import { apiService } from "@/services/api";
 import { PaginationResponse } from "@/interfaces/pagination";
-import { GetUsersSchema, UpdateUserSchema } from "@/components/admin/users/table/_components/validations";
 import { User } from "@/types/user";
+import { GetUsersSchema, UpdateUserSchema } from "@/components/admin/users/table/validations";
 
 const API_PREFIX = "users";
 

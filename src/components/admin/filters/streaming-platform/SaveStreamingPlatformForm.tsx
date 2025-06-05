@@ -20,12 +20,12 @@ const SaveStreamingPlatformForm = <T extends FieldValues>({ children, form, onSu
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4">
         <FormField
           control={form.control}
-          name={"id" as FieldPath<T>}
+          name={"code" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.id.label")}</FormLabel>
+              <FormLabel required={true}>{t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.code.label")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.id.placeholder")} {...field} className="resize-none w-60" />
+                <Input placeholder={t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.code.placeholder")} {...field} className="resize-none w-60" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -37,7 +37,7 @@ const SaveStreamingPlatformForm = <T extends FieldValues>({ children, form, onSu
           name={"name" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.name.label")}</FormLabel>
+              <FormLabel required={true}>{t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.name.label")}</FormLabel>
               <FormControl>
                 <Input className="resize-none w-60" placeholder={t("admin.filters.tabs.streaming-platforms.saveStreamingPlatformForm.name.placeholder")} {...field} />
               </FormControl>
