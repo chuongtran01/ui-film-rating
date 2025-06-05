@@ -28,7 +28,7 @@ export function SidebarNav({ className, items, title, ...props }: SidebarNavProp
           <Link
             key={item.href}
             href={item.href}
-            className={cn(buttonVariants({ variant: "ghost" }), stripLocale(pathname) === item.href ? "bg-muted hover:bg-muted" : "hover:bg-transparent hover:underline", "justify-start")}
+            className={cn(buttonVariants({ variant: "ghost" }), stripLocale(pathname).includes(item.href) ? "bg-muted hover:bg-muted" : "hover:bg-transparent hover:underline", "justify-start")}
           >
             {item.title}
           </Link>

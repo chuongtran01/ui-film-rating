@@ -1,4 +1,4 @@
-export type ShowStatus = {
+export type ShowType = {
   id?: number;
   code: string;
   name: string;

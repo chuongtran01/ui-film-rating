@@ -10,9 +10,6 @@ export const searchUsersParamsCache = createSearchParamsCache({
   role: parseAsString.withDefault(""),
   gender: parseAsString.withDefault(""),
   active: parseAsString.withDefault(""),
-  dob: parseAsArrayOf(z.coerce.number()).withDefault([]),
-  createdAt: parseAsArrayOf(z.coerce.number()).withDefault([]),
-  updatedAt: parseAsArrayOf(z.coerce.number()).withDefault([]),
 });
 
 export const updateUserSchema = z.object({

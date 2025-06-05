@@ -61,7 +61,107 @@
     "shows": {
       "sidebar": "Shows",
       "title": "Shows",
-      "description": "Manage shows, movies, series."
+      "description": "Manage shows, movies, series.",
+      "createButton": "Create Show",
+      "createShow": {
+        "title": "Create Show",
+        "description": "Create a new show.",
+        "successMessage": {
+          "title": "Show created",
+          "description": "The show has been created successfully."
+        },
+        "errorMessage": {
+          "title": "Show creation failed",
+          "description": "Please try again."
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "create": "Create"
+        }
+      },
+      "updateShow": {
+        "title": "Update Show",
+        "description": "Update the show details and save the changes",
+        "buttons": {
+          "cancel": "Cancel",
+          "save": "Save"
+        },
+        "successMessage": {
+          "title": "Show updated",
+          "description": "The show has been updated successfully."
+        },
+        "errorMessage": {
+          "title": "Show update failed",
+          "description": "Please try again."
+        }
+      },
+      "saveShowForm": {
+        "form": {
+          "title": {
+            "label": "Title",
+            "placeholder": "Enter title"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Enter description"
+          },
+          "releaseDate": {
+            "label": "Release Date",
+            "placeholder": "Enter release date"
+          },
+          "duration": {
+            "label": "Duration (minutes)",
+            "placeholder": "Enter duration"
+          },
+          "rating": {
+            "label": "Rating (0-10)",
+            "placeholder": "Enter rating"
+          },
+          "status": {
+            "label": "Status",
+            "placeholder": "Select a status"
+          },
+          "genres": {
+            "label": "Genres",
+            "placeholder": "Select genres",
+            "search": "Search genres",
+            "noResults": "No genres found",
+            "selected": "Selected: ",
+            "remove": "Remove"
+          },
+          "countries": {
+            "label": "Countries",
+            "placeholder": "Select countries",
+            "search": "Search countries",
+            "noResults": "No countries found",
+            "selected": "Selected: ",
+            "remove": "Remove"
+          },
+          "streamingPlatforms": {
+            "label": "Streaming Platforms",
+            "placeholder": "Select platforms",
+            "search": "Search platforms",
+            "noResults": "No platforms found",
+            "selected": "Selected: ",
+            "remove": "Remove"
+          },
+          "language": {
+            "label": "Language",
+            "placeholder": "Select language"
+          },
+          "buttons": {
+            "save": "Save"
+          }
+        }
+      },
+      "deleteShowDialog": {
+        "title": "Delete Show",
+        "description": "Delete the show",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
+      }
     },
     "users": {
       "sidebar": "Users",
@@ -253,9 +353,9 @@
               "label": "Name",
               "placeholder": "Enter name"
             },
-            "id": {
-              "label": "ID",
-              "placeholder": "Enter ID"
+            "code": {
+              "label": "Code",
+              "placeholder": "Enter code"
             }
           }
         },
@@ -315,9 +415,9 @@
               "label": "Name",
               "placeholder": "Enter name"
             },
-            "id": {
-              "label": "ID",
-              "placeholder": "Enter ID"
+            "code": {
+              "label": "Code",
+              "placeholder": "Enter code"
             },
             "logo": {
               "label": "Logo URL",
@@ -377,6 +477,58 @@
             },
             "errorMessage": {
               "title": "Show status update failed",
+              "description": "Please try again."
+            }
+          }
+        },
+        "show-types": {
+          "title": "Types",
+          "deleteDialog": {
+            "title": "Are you absolutely sure?",
+            "description": "This action cannot be undone. This will permanently delete the {item}.",
+            "buttons": {
+              "cancel": "Cancel",
+              "delete": "Delete"
+            },
+            "successMessage": {
+              "title": "Type deleted",
+              "description": "The type has been deleted successfully."
+            },
+            "errorMessage": {
+              "title": "Type deletion failed",
+              "description": "Please try again."
+            }
+          },
+          "createButton": "Create Type",
+          "createDialog": {
+            "title": "Create Type",
+            "description": "Create a new type.",
+            "successMessage": {
+              "title": "Type created",
+              "description": "The type has been created successfully."
+            },
+            "errorMessage": {
+              "title": "Type creation failed",
+              "description": "Please try again."
+            },
+            "buttons": {
+              "cancel": "Cancel",
+              "create": "Create"
+            }
+          },
+          "updateDialog": {
+            "title": "Update Type",
+            "description": "Update the type details and save the changes",
+            "buttons": {
+              "cancel": "Cancel",
+              "save": "Save"
+            },
+            "successMessage": {
+              "title": "Type updated",
+              "description": "The type has been updated successfully."
+            },
+            "errorMessage": {
+              "title": "Type update failed",
               "description": "Please try again."
             }
           }
@@ -456,9 +608,9 @@
   },
   "saveFilterForm": {
     "form": {
-      "id": {
-        "label": "ID",
-        "placeholder": "Enter ID"
+      "code": {
+        "label": "Code",
+        "placeholder": "Enter code"
       },
       "name": {
         "label": "Name",

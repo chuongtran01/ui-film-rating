@@ -1,5 +1,6 @@
 export type StreamingPlatform = {
-  id: string;
+  id?: number;
+  code: string;
   name: string;
   logo?: string;
   url?: string;

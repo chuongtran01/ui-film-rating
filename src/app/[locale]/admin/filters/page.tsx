@@ -4,6 +4,7 @@ import { CountriesTable } from "@/components/admin/filters/countries/CountriesTa
 import { GenresTable } from "@/components/admin/filters/genres/GenresTable";
 import { LanguagesTable } from "@/components/admin/filters/languages/LanguagesTable";
 import { ShowStatusesTable } from "@/components/admin/filters/show-statuses/ShowStatusesTable";
+import { ShowTypesTable } from "@/components/admin/filters/show-types/ShowTypesTable";
 import { StreamingPlatformsTable } from "@/components/admin/filters/streaming-platform/StreamingPlatformsTable";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
@@ -34,6 +35,10 @@ const tabs = [
   {
     value: "show-statuses",
     component: <ShowStatusesTable />,
+  },
+  {
+    value: "show-types",
+    component: <ShowTypesTable />,
   },
 ];
 

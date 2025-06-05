@@ -14,7 +14,6 @@ interface UpdateUserFormProps<T extends FieldValues> extends Omit<React.Componen
   children: React.ReactNode;
   form: UseFormReturn<T>;
   onSubmit: (data: T) => void;
-
   isUsersTable: boolean;
 }
 
@@ -29,7 +28,7 @@ const UpdateUserForm = <T extends FieldValues>({ children, form, onSubmit, isUse
           name={"displayName" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("updateUserForm.form.displayName.label")}</FormLabel>
+              <FormLabel required={true}>{t("updateUserForm.form.displayName.label")}</FormLabel>
               <FormControl>
                 <Input placeholder={t("updateUserForm.form.displayName.placeholder")} {...field} className="resize-none w-60" />
               </FormControl>
@@ -43,7 +42,7 @@ const UpdateUserForm = <T extends FieldValues>({ children, form, onSubmit, isUse
           name={"email" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("updateUserForm.form.email.label")}</FormLabel>
+              <FormLabel required={true}>{t("updateUserForm.form.email.label")}</FormLabel>
               <FormControl>
                 <Input className="resize-none w-60" disabled {...field} />
               </FormControl>
@@ -58,7 +57,7 @@ const UpdateUserForm = <T extends FieldValues>({ children, form, onSubmit, isUse
             name={"role" as FieldPath<T>}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("updateUserForm.form.role.label")}</FormLabel>
+                <FormLabel required={true}>{t("updateUserForm.form.role.label")}</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="capitalize w-40">

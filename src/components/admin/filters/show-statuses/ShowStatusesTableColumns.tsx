@@ -9,13 +9,13 @@ import { DataTableColumnHeader } from "@/components/data-table/data-table-column
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import formatterService from "@/services/formatter";
-import { StreamingPlatform } from "@/types/streaming-platform";
+import { ShowStatus } from "@/types/show-status";
 
-interface GetStreamingPlatformsTableColumnsProps {
-  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<StreamingPlatform> | null>>;
+interface GetShowStatusesTableColumnsProps {
+  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<ShowStatus> | null>>;
 }
 
-export function getStreamingPlatformsTableColumns({ setRowAction }: GetStreamingPlatformsTableColumnsProps): ColumnDef<StreamingPlatform>[] {
+export function getShowStatusesTableColumns({ setRowAction }: GetShowStatusesTableColumnsProps): ColumnDef<ShowStatus>[] {
   return [
     {
       id: "code",
@@ -44,20 +44,6 @@ export function getStreamingPlatformsTableColumns({ setRowAction }: GetStreaming
       },
       enableColumnFilter: true,
       enableSorting: true,
-      enableHiding: true,
-    },
-    {
-      id: "logo",
-      accessorKey: "logo",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Logo" />,
-      cell: ({ row }) => <div className="w-30">{String(row.getValue("logo"))}</div>,
-      enableHiding: true,
-    },
-    {
-      id: "url",
-      accessorKey: "url",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="URL" />,
-      cell: ({ row }) => <div className="w-30">{String(row.getValue("url"))}</div>,
       enableHiding: true,
     },
     {

@@ -46,15 +46,11 @@ export function StreamingPlatformsTable() {
     []
   );
 
-  const onTaskExport = React.useCallback(() => {
-    console.log("onTaskExport");
-  }, []);
-
   const { table } = useDataTable({
     data: data?.content || [],
     columns,
     pageCount: data?.page?.totalPages ?? 0,
-    getRowId: (originalRow) => originalRow.id,
+    getRowId: (originalRow) => String(originalRow.id),
     shallow: false,
     clearOnDefault: true,
   });

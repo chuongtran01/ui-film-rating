@@ -8,24 +8,23 @@ import * as React from "react";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import formatterService from "@/services/formatter";
-import { StreamingPlatform } from "@/types/streaming-platform";
+import { Show } from "@/types/show";
 
-interface GetStreamingPlatformsTableColumnsProps {
-  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<StreamingPlatform> | null>>;
+interface GetShowsTableColumnsProps {
+  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<Show> | null>>;
 }
 
-export function getStreamingPlatformsTableColumns({ setRowAction }: GetStreamingPlatformsTableColumnsProps): ColumnDef<StreamingPlatform>[] {
+export function getShowsTableColumns({ setRowAction }: GetShowsTableColumnsProps): ColumnDef<Show>[] {
   return [
     {
-      id: "code",
-      accessorKey: "code",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Code" />,
-      cell: ({ row }) => <div className="w-20">{String(row.getValue("code"))}</div>,
+      id: "title",
+      accessorKey: "title",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
+      cell: ({ row }) => <div className="w-20">{String(row.getValue("title"))}</div>,
       meta: {
-        label: "Code",
+        label: "Title",
         variant: "popoverText",
-        placeholder: "Search codes...",
+        placeholder: "Search titles...",
       },
       enableColumnFilter: true,
       enableSorting: true,
@@ -47,34 +46,33 @@ export function getStreamingPlatformsTableColumns({ setRowAction }: GetStreaming
       enableHiding: true,
     },
     {
-      id: "logo",
-      accessorKey: "logo",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Logo" />,
-      cell: ({ row }) => <div className="w-30">{String(row.getValue("logo"))}</div>,
+      id: "releaseDate",
+      accessorKey: "releaseDate",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Release Date" />,
+      cell: ({ row }) => <div className="w-30">{String(row.getValue("releaseDate"))}</div>,
       enableHiding: true,
+      enableSorting: true,
     },
     {
-      id: "url",
-      accessorKey: "url",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="URL" />,
-      cell: ({ row }) => <div className="w-30">{String(row.getValue("url"))}</div>,
-      enableHiding: true,
+      id: "duration",
+      accessorKey: "duration",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Duration" />,
+      cell: ({ row }) => <div className="w-30">{String(row.getValue("duration"))}</div>,
+      enableSorting: true,
     },
     {
-      id: "createdAt",
-      accessorKey: "createdAt",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Created At (UTC)" />,
-      cell: ({ cell }) => formatterService.formatDateTimeUTC(cell.getValue<Date>()),
-      enableSorting: false,
-      enableHiding: true,
+      id: "rating",
+      accessorKey: "rating",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Rating" />,
+      cell: ({ row }) => <div className="w-30">{String(row.getValue("rating"))}</div>,
+      enableSorting: true,
     },
     {
-      id: "updatedAt",
-      accessorKey: "updatedAt",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Updated At (UTC)" />,
-      cell: ({ cell }) => formatterService.formatDateTimeUTC(cell.getValue<Date>()),
-      enableSorting: false,
-      enableHiding: true,
+      id: "status",
+      accessorKey: "status",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
+      cell: ({ row }) => <div className="w-30">{String(row.getValue("status"))}</div>,
+      enableSorting: true,
     },
     {
       id: "actions",

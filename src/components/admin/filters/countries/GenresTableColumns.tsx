@@ -23,14 +23,14 @@ interface GetCountriesTableColumnsProps {
 export function getCountriesTableColumns({ setRowAction }: GetCountriesTableColumnsProps): ColumnDef<Country>[] {
   return [
     {
-      id: "id",
-      accessorKey: "id",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="ID" />,
-      cell: ({ row }) => <div className="w-20">{String(row.getValue("id"))}</div>,
+      id: "code",
+      accessorKey: "code",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Code" />,
+      cell: ({ row }) => <div className="w-20">{String(row.getValue("code"))}</div>,
       meta: {
-        label: "ID",
+        label: "Code",
         variant: "popoverText",
-        placeholder: "Search IDs...",
+        placeholder: "Search codes...",
       },
       enableColumnFilter: true,
       enableSorting: true,

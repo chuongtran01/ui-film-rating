@@ -18,13 +18,15 @@ import { useTranslations } from "next-intl";
 import { saveShowStatusSchema, SaveShowStatusSchema, searchShowStatusesParamsCache } from "@/components/admin/filters/show-statuses/validation";
 import filterService from "@/services/filter";
 import SaveFilterForm from "@/components/common/SaveFilterForm";
-import { ShowStatus } from "@/types/show-status";
+import { ShowType } from "@/types/show-type";
+import { SaveShowTypeSchema } from "./validation";
+import { saveShowTypeSchema } from "./validation";
 
-interface UpdateShowStatusSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
-  showStatus: ShowStatus;
+interface UpdateShowTypeSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
+  showType: ShowType;
 }
 
-export function UpdateShowStatusSheet({ showStatus, ...props }: UpdateShowStatusSheetProps) {
+export function UpdateShowTypeSheet({ showType, ...props }: UpdateShowTypeSheetProps) {
   const t = useTranslations();
 
   const params = getAllParams(useSearchParams());
@@ -32,54 +34,54 @@ export function UpdateShowStatusSheet({ showStatus, ...props }: UpdateShowStatus
   const filteredSearch = getValidSearchParams(searchParams);
 
   const queryClient = useQueryClient();
-  const form = useForm<SaveShowStatusSchema>({
-    resolver: zodResolver(saveShowStatusSchema),
+  const form = useForm<SaveShowTypeSchema>({
+    resolver: zodResolver(saveShowTypeSchema),
     defaultValues: {
-      id: showStatus.id,
-      code: showStatus.code,
-      name: showStatus.name,
+      id: showType.id,
+      code: showType.code,
+      name: showType.name,
     },
   });
 
-  const updateShowStatusMutation = useMutation({
-    mutationFn: (data: SaveShowStatusSchema) => filterService.updateShowStatus(showStatus.id!, data),
+  const updateShowTypeMutation = useMutation({
+    mutationFn: (data: SaveShowTypeSchema) => filterService.updateShowType(showType.id!, data),
     onSuccess: (response) => {
-      toastService.success(t("admin.filters.tabs.show-statuses.updateDialog.successMessage.title"), t("admin.filters.tabs.show-statuses.updateDialog.successMessage.description"));
-      queryClient.setQueryData(["show-statuses", filteredSearch], (oldData: any) => {
+      toastService.success(t("admin.filters.tabs.show-types.updateDialog.successMessage.title"), t("admin.filters.tabs.show-types.updateDialog.successMessage.description"));
+      queryClient.setQueryData(["show-types", filteredSearch], (oldData: any) => {
         if (!oldData) return oldData;
         return {
           ...oldData,
-          content: oldData.content.map((item: ShowStatus) => (item.id === showStatus.id ? { ...item, ...response } : item)),
+          content: oldData.content.map((item: ShowType) => (item.id === showType.id ? { ...item, ...response } : item)),
         };
       });
       props.onOpenChange?.(false);
     },
     onError: () => {
-      toastService.error(t("admin.filters.tabs.show-statuses.updateDialog.errorMessage.title"), t("admin.filters.tabs.show-statuses.updateDialog.errorMessage.description"));
+      toastService.error(t("admin.filters.tabs.show-types.updateDialog.errorMessage.title"), t("admin.filters.tabs.show-types.updateDialog.errorMessage.description"));
     },
   });
 
-  function onSubmit(input: SaveShowStatusSchema) {
-    updateShowStatusMutation.mutate(input);
+  function onSubmit(input: SaveShowTypeSchema) {
+    updateShowTypeMutation.mutate(input);
   }
 
   return (
     <Sheet {...props}>
       <SheetContent className="flex flex-col gap-6 sm:max-w-md">
         <SheetHeader className="text-left">
-          <SheetTitle>{t("admin.filters.tabs.show-statuses.updateDialog.title")}</SheetTitle>
-          <SheetDescription>{t("admin.filters.tabs.show-statuses.updateDialog.description")}</SheetDescription>
+          <SheetTitle>{t("admin.filters.tabs.show-types.updateDialog.title")}</SheetTitle>
+          <SheetDescription>{t("admin.filters.tabs.show-types.updateDialog.description")}</SheetDescription>
         </SheetHeader>
         <SaveFilterForm form={form} onSubmit={onSubmit}>
           <SheetFooter className="gap-2 pt-2 sm:space-x-0">
             <SheetClose asChild>
               <Button type="button" variant="outline">
-                {t("admin.filters.tabs.show-statuses.updateDialog.buttons.cancel")}
+                {t("admin.filters.tabs.show-types.updateDialog.buttons.cancel")}
               </Button>
             </SheetClose>
-            <Button disabled={updateShowStatusMutation.isPending}>
-              {updateShowStatusMutation.isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
-              {t("admin.filters.tabs.show-statuses.updateDialog.buttons.save")}
+            <Button disabled={updateShowTypeMutation.isPending}>
+              {updateShowTypeMutation.isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
+              {t("admin.filters.tabs.show-types.updateDialog.buttons.save")}
             </Button>
           </SheetFooter>
         </SaveFilterForm>

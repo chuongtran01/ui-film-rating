@@ -2,34 +2,30 @@
 
 import type { DataTableRowAction } from "@/types/data-table";
 import type { ColumnDef } from "@tanstack/react-table";
-import { CalendarIcon, CheckCircle, Ellipsis, Mail, User as UserIcon } from "lucide-react";
+import { Ellipsis, Mail } from "lucide-react";
 import * as React from "react";
 
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { UserGender } from "@/enums/UserGender";
-import { UserRole } from "@/enums/UserRole";
 import formatterService from "@/services/formatter";
-import { User } from "@/types/user";
-import { Genre } from "@/types/genre";
+import { ShowType } from "@/types/show-type";
 
-interface GetGenresTableColumnsProps {
-  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<Genre> | null>>;
+interface GetShowTypesTableColumnsProps {
+  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<ShowType> | null>>;
 }
 
-export function getGenresTableColumns({ setRowAction }: GetGenresTableColumnsProps): ColumnDef<Genre>[] {
+export function getShowTypesTableColumns({ setRowAction }: GetShowTypesTableColumnsProps): ColumnDef<ShowType>[] {
   return [
     {
-      id: "id",
-      accessorKey: "id",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="ID" />,
-      cell: ({ row }) => <div className="w-20">{String(row.getValue("id"))}</div>,
+      id: "code",
+      accessorKey: "code",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Code" />,
+      cell: ({ row }) => <div className="w-20">{String(row.getValue("code"))}</div>,
       meta: {
-        label: "ID",
+        label: "Code",
         variant: "popoverText",
-        placeholder: "Search IDs...",
+        placeholder: "Search codes...",
       },
       enableColumnFilter: true,
       enableSorting: true,

@@ -37,12 +37,13 @@ export function UpdateGenreSheet({ genre, ...props }: UpdateGenreSheetProps) {
     resolver: zodResolver(saveGenreSchema),
     defaultValues: {
       id: genre.id,
+      code: genre.code,
       name: genre.name,
     },
   });
 
   const updateGenreMutation = useMutation({
-    mutationFn: (data: SaveGenreSchema) => filterService.updateGenre(genre.id, data),
+    mutationFn: (data: SaveGenreSchema) => filterService.updateGenre(genre.id!, data),
     onSuccess: (response) => {
       toastService.success(t("admin.filters.tabs.genres.updateDialog.successMessage.title"), t("admin.filters.tabs.genres.updateDialog.successMessage.description"));
       queryClient.setQueryData(["genres", filteredSearch], (oldData: any) => {

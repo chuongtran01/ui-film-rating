@@ -20,12 +20,12 @@ const SaveFilterForm = <T extends FieldValues>({ children, form, onSubmit }: Sav
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 px-4">
         <FormField
           control={form.control}
-          name={"id" as FieldPath<T>}
+          name={"code" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("saveFilterForm.form.id.label")}</FormLabel>
+              <FormLabel required={true}>{t("saveFilterForm.form.code.label")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("saveFilterForm.form.id.placeholder")} {...field} className="resize-none w-60" />
+                <Input placeholder={t("saveFilterForm.form.code.placeholder")} {...field} className="resize-none w-60" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -37,7 +37,7 @@ const SaveFilterForm = <T extends FieldValues>({ children, form, onSubmit }: Sav
           name={"name" as FieldPath<T>}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("saveFilterForm.form.name.label")}</FormLabel>
+              <FormLabel required={true}>{t("saveFilterForm.form.name.label")}</FormLabel>
               <FormControl>
                 <Input className="resize-none w-60" placeholder={t("saveFilterForm.form.name.placeholder")} {...field} />
               </FormControl>

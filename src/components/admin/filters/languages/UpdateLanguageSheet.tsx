@@ -37,12 +37,13 @@ export function UpdateLanguageSheet({ language, ...props }: UpdateLanguageSheetP
     resolver: zodResolver(saveLanguageSchema),
     defaultValues: {
       id: language.id,
+      code: language.code,
       name: language.name,
     },
   });
 
   const updateLanguageMutation = useMutation({
-    mutationFn: (data: SaveLanguageSchema) => filterService.updateLanguage(language.id, data),
+    mutationFn: (data: SaveLanguageSchema) => filterService.updateLanguage(language.id!, data),
     onSuccess: (response) => {
       toastService.success(t("admin.filters.tabs.languages.updateDialog.successMessage.title"), t("admin.filters.tabs.languages.updateDialog.successMessage.description"));
       queryClient.setQueryData(["languages", filteredSearch], (oldData: any) => {
